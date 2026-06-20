@@ -24,7 +24,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <div className="flex justify-between items-center px-6 h-14 border-b border-gray-500">
+          <div>endr0id deVlog</div>
+          <div>mode</div>
+        </div>
+        {children}
+      </body>
     </html>
   );
 }
