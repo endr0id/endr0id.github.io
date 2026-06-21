@@ -1,3 +1,7 @@
 export default function Home() {
-  return <h1 className="text-3xl font-semibold">Hello World</h1>;
+  return (
+    <div className="flex justify-center">
+      <h1 className="text-3xl font-semibold">Hello, world</h1>
+    </div>
+  );
 }
