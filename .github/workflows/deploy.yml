@@ -2,7 +2,7 @@ name: Deploy Next.js to Pages
 
 on:
   push:
-    branches: ["main", "topic/*"] # TODO: デバッグ用でtopic追加
+    branches: ["main"]
 
 permissions:
   contents: read
