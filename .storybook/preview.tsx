@@ -1,7 +1,27 @@
-import type { Preview } from "@storybook/nextjs-vite";
+import type { Preview, Decorator } from "@storybook/nextjs-vite";
 import "../app/globals.css";
 
+const withTheme: Decorator = (Story, ctx) => {
+  const theme = ctx.globals.theme || "light";
+  document.documentElement.setAttribute("data-theme", theme);
+  return Story();
+};
+
 const preview: Preview = {
+  decorators: [withTheme],
+  globalTypes: {
+    theme: {
+      name: "dark mode",
+      defaultValue: "light",
+      toolbar: {
+        icon: "moon",
+        items: [
+          { value: "light", title: "light" },
+          { value: "dark", title: "dark" },
+        ],
+      },
+    },
+  },
   parameters: {
     controls: {
       matchers: {
@@ -20,4 +40,3 @@ const preview: Preview = {
 };
 
 export default preview;
-
