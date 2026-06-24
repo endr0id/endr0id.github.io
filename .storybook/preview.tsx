@@ -1,11 +1,32 @@
-import type { Preview } from '@storybook/nextjs-vite'
+import type { Preview, Decorator } from "@storybook/nextjs-vite";
+import "../app/globals.css";
+
+const withTheme: Decorator = (Story, ctx) => {
+  const theme = ctx.globals.theme || "light";
+  document.documentElement.setAttribute("data-theme", theme);
+  return Story();
+};
 
 const preview: Preview = {
+  decorators: [withTheme],
+  globalTypes: {
+    theme: {
+      name: "dark mode",
+      defaultValue: "light",
+      toolbar: {
+        icon: "moon",
+        items: [
+          { value: "light", title: "light" },
+          { value: "dark", title: "dark" },
+        ],
+      },
+    },
+  },
   parameters: {
     controls: {
       matchers: {
-       color: /(background|color)$/i,
-       date: /Date$/i,
+        color: /(background|color)$/i,
+        date: /Date$/i,
       },
     },
 
@@ -13,8 +34,8 @@ const preview: Preview = {
       // 'todo' - show a11y violations in the test UI only
       // 'error' - fail CI on a11y violations
       // 'off' - skip a11y checks entirely
-      test: 'todo'
-    }
+      test: "todo",
+    },
   },
 };
 

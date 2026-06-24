@@ -30,9 +30,13 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       suppressHydrationWarning
     >
+      <meta name="viewport" content="width=device-width initial-scale=1.0" />
       <body className="min-h-full flex flex-col">
         <ThemeProvider enableSystem={false}>
           <Header />
+          <p className="my-16 self-center sm:text-3xl md:text-5xl lg:text-7xl font-semibold">
+            Hello, world
+          </p>
           {children}
         </ThemeProvider>
       </body>
