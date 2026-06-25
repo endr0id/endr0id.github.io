@@ -2,6 +2,7 @@
 
 @custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 
+/* CSS Variables */
 :root {
   --background: #ffffff;
   --foreground: #171717;
@@ -21,6 +22,7 @@
   --border-surface: var(--color-neutral-700);
 }
 
+/* Tailwind Tokens */
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -30,6 +32,22 @@
   --font-mono: var(--font-geist-mono);
 }
 
+/* Custom Utilities */
+@utility debug-box {
+  border: 1px solid var(--color-outline);
+
+  background-image: repeating-linear-gradient(
+    315deg,
+    var(--color-outline) 0,
+    var(--color-outline) 1px,
+    transparent 0,
+    transparent 50%
+  );
+
+  background-size: 10px 10px;
+}
+
+/* Base Styles */
 body {
   background: var(--background);
   color: var(--foreground);
