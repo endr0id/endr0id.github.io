@@ -23,7 +23,7 @@ const ThemeToggleButton = () => {
     <Toggle.Root
       onPressedChange={handleTheme}
       aria-label="Theme toggle"
-      className="flex items-center justify-center p-1 border rounded"
+      className="flex items-center justify-center p-1 border rounded border-outline"
     >
       {mounted && icon}
     </Toggle.Root>
