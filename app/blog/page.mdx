@@ -1,56 +1,81 @@
-heading
+# Next.jsでMarkdownとMDXを使用する方法
+マークダウンはテキストの書式設定に使用される軽量なマークアップ言語です。  
+プレーンテキストの構文で記述し、構造的に正しいHTMLに変換することができ、ウェブサイトやブログのコンテンツ作成によく使われています。
 
-# Hello, World
-## Hello, World
-### Hello, World
-#### Hello, World
-##### Hello, World
-###### Hello, World
- 
----
+### 依存関係のインストール
+`@next/mdx`及び関連パッケージはNext.jsがマークダウンとMDXを処理できる様に構成するために使用されます。  
+これらはローカルファイルからデータを読み込むため、`/app`または`/pages`配下で`.md`もしくは`.mdx`のファイルを作成する事が可能です。
 
-## Bold Text
-This is **bold text**
-
-## Italic Text
-This is *italicized text*
-
----
-
-## Unordered List 
-- One
-- Two
-  - Two-One
-- Three
-  - Three-One
-    - Three-One-One
-
----
-
-## Ordered List
-1. First item
-2. Second item
-3. Third item
-
----
-
-## Blockquote
-> Blockquote
-
----
-
-## Code
-This is `code text`.
-
-```typescript
-console.log("hello world");
+```bash
+pnpm add @next/mdx @mdx-js/loader @mdx-js/react @types/mdx
 ```
 
-## Horizontal Rule
----
+## next.config.jsの設定
+プロジェクトルートにある設定ファイルを更新しMDXを使用できるように設定します。  
+`pageExtensions`プロパティ追加し、`createMDX`でNext.jsの設定を統合させて下さい。
+```typescript
+import createMDX from '@next/mdx'
+ 
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  pageExtensions: ['js', 'jsx', 'md', 'mdx', 'ts', 'tsx'],
+}
 
-## Link
-[My Repo](https://github.com/endr0id)
+const withMDX = createMDX({
+  // Add markdown plugins here, as desired
+})
+ 
+export default withMDX(nextConfig)
+```
 
-## Image
-![alt text](../../public/next.svg)
+設定追加することで`.mdx`をアプリケーション内のルートやページ、インポートとして扱う事が可能です。
+
+## mdx-components.tsxを追加する
+プロジェクトルートディレクトリに`mdx-components.{ js | tsx }`を作成し、グローバルなMDXコンポーネントを定義します。  
+必要に応じて`src/`内に作成することも可能です。
+
+```typescript
+import type { MDXComponents } from 'mdx/types'
+ 
+const components: MDXComponents = {}
+ 
+export function useMDXComponents(): MDXComponents {
+  return components
+}
+```
+
+## MDXをレンダリング
+Next.jsのファイルベースルーティングを使用するか、MDXファイルを他のページにインポートすることでMDXをレンダリング出来ます。
+
+```
+my-project
+ ├── app
+ │   └── mdx-page
+ │       └── page.{mdx/md}
+ |── mdx-components.{tsx/js}
+ └── package.json
+```
+
+MDXページ内で直接Reactコンポーネントをインポートすることも可能です。
+```mdx
+import { MyComponent } from 'my-component'
+ 
+# Welcome to my MDX page!
+ 
+This is some **bold** and _italics_ text.
+ 
+This is a list in markdown:
+ 
+- One
+- Two
+- Three
+ 
+Checkout my React component:
+ 
+<MyComponent />
+```
+
+
+## 参照リンク
+- [How to use markdown and MDX in Next.js](https://nextjs.org/docs/app/guides/mdx)
+- [tailwindcss-typography](https://github.com/tailwindlabs/tailwindcss-typography)
