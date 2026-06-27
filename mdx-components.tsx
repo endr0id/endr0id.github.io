@@ -71,7 +71,7 @@ const components: MDXComponents = {
 
   // Code Block
   pre: ({ children }) => (
-    <pre className="my-6 overflow-x-auto rounded-lg border border-outline p-4">
+    <pre className="my-6 p-4 overflow-x-auto border border-outline rounded-lg bg-neutral-300 dark:bg-neutral-800">
       {children}
     </pre>
   ),
