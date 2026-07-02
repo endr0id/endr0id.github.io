@@ -32,7 +32,9 @@ export default async function BlogPage({
       <div>
         <Component />
       </div>
-      <TOC headings={headings} />
+      <aside className="self-start sticky top-20">
+        <TOC headings={headings} />
+      </aside>
     </div>
   );
 }
