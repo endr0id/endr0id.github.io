@@ -1,4 +1,5 @@
 import Card from "@/src/components/card/Card";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -8,7 +9,9 @@ export default function Home() {
       </p>
       <section>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          <Card title="title" description="description text" />
+          <Link href="/blog/react">
+            <Card title="title" description="description text" />
+          </Link>
         </div>
       </section>
     </div>
