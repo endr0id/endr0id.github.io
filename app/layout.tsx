@@ -35,9 +35,6 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col">
         <ThemeProvider enableSystem={false}>
           <Header />
-          <p className="my-16 self-center sm:text-3xl md:text-5xl lg:text-7xl font-semibold">
-            Hello, world
-          </p>
           {children}
         </ThemeProvider>
       </body>
