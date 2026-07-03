@@ -28,7 +28,7 @@ export default async function BlogPage({
 
   return (
     <div className="grid grid-cols-3 gap-4">
-      <aside className="debug-box" />
+      <aside />
       <div>
         <Component />
       </div>
