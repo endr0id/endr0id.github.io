@@ -1,21 +1,22 @@
 import { readFile } from "node:fs/promises";
 
+const ARTICLE_PATHS: Record<string, { file: string; import: string }> = {
+  react: {
+    file: "app/blog/_contents/article.mdx",
+    import: "@/app/blog/_contents/article.mdx",
+  },
+};
+
 export async function getArticle(slug: string) {
-  switch (slug) {
-    case "react":
-      const markdown = await readFile(
-        "app/blog/_contents/article.mdx",
-        "utf-8",
-      );
+  const config = ARTICLE_PATHS[slug];
 
-      const module = await import("@/app/blog/_contents/article.mdx");
+  if (!config) return null;
 
-      return {
-        Component: module.default,
-        markdown,
-      };
+  const markdown = await readFile(config.file, "utf-8");
+  const module = await import(config.import);
 
-    default:
-      return null;
-  }
+  return {
+    Component: module.default,
+    markdown,
+  };
 }
