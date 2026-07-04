@@ -1,6 +1,6 @@
+import { notFound } from "next/navigation";
 import { extractHeading } from "@/src/lib/mdx/extractHeading";
 import { getArticle } from "@/src/lib/mdx/getArticle";
-import { notFound } from "next/navigation";
 import TOC from "../_components/toc/TOC";
 
 export function generateStaticParams() {

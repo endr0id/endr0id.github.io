@@ -1,9 +1,9 @@
 "use client";
 
-import { Toggle } from "radix-ui";
-import { SunMedium, Moon } from "lucide-react";
+import { useEffect, useState } from "react";
+import { Moon, SunMedium } from "lucide-react";
 import { useTheme } from "next-themes";
-import { useState, useEffect } from "react";
+import { Toggle } from "radix-ui";
 
 const ThemeToggleButton = () => {
   const [mounted, setMounted] = useState(false);
