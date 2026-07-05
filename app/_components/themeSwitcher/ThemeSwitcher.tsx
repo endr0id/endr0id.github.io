@@ -5,7 +5,7 @@ import { Moon, SunMedium } from "lucide-react";
 import { useTheme } from "next-themes";
 import { Toggle } from "radix-ui";
 
-const ThemeToggleButton = () => {
+const ThemeSwitcher = () => {
   const [mounted, setMounted] = useState(false);
   const { theme, setTheme } = useTheme();
 
@@ -22,12 +22,12 @@ const ThemeToggleButton = () => {
   return (
     <Toggle.Root
       onPressedChange={handleTheme}
-      aria-label="Theme toggle"
       className="flex items-center justify-center p-1 border rounded border-outline"
+      aria-label="Theme Switch"
     >
       {mounted && icon}
     </Toggle.Root>
   );
 };
 
-export default ThemeToggleButton;
+export default ThemeSwitcher;
