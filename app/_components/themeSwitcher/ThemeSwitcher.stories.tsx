@@ -7,6 +7,11 @@ const meta = {
   component: ThemeSwitcher,
   parameters: {
     layout: "centered",
+    docs: {
+      description: {
+        component: "テーマ切り替え用ボタンコンポーネント",
+      },
+    },
   },
   tags: ["autodocs"],
 } satisfies Meta<typeof ThemeSwitcher>;
@@ -17,7 +22,7 @@ type Story = StoryObj<typeof meta>;
 export const Primary: Story = {
   decorators: [
     (Story) => (
-      <ThemeProvider enableSystem={false}>
+      <ThemeProvider defaultTheme="light" enableSystem={false}>
         <Story />
       </ThemeProvider>
     ),
