@@ -1,4 +1,4 @@
-import ThemeToggleButton from "./ThemeToggleButton";
+import ThemeToggleButton from "../themeSwitcher/ThemeToggleButton";
 
 const Header = () => {
   return (
