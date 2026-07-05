@@ -1,9 +1,9 @@
 "use client";
 
-import type { HeadingInfo } from "@/src/lib/mdx/extractHeading";
 import clsx from "clsx";
 import { useActiveHeading } from "./hooks/useActiveHeading";
 import { getHeadingIndent } from "./utils/getHeadingIndent";
+import type { HeadingInfo } from "@/src/lib/mdx/extractHeading";
 
 const TOC = ({ headings }: { headings: HeadingInfo[] }) => {
   const activeId = useActiveHeading();

@@ -7,7 +7,7 @@
   },
   "files": {
     "ignoreUnknown": true,
-    "includes": ["**", "!node_modules", "!.next", "!dist", "!build"]
+    "includes": ["**", "!node_modules", "!.next", "!dist", "!build", "!stories"]
   },
   "formatter": {
     "enabled": true,
@@ -20,6 +20,14 @@
       "recommended": true,
       "suspicious": {
         "noUnknownAtRules": "off"
+      },
+      "style": {
+        "useImportType": {
+          "level": "on",
+          "options": {
+            "style": "inlineType"
+          }
+        }
       }
     },
     "domains": {
@@ -30,7 +38,18 @@
   "assist": {
     "actions": {
       "source": {
-        "organizeImports": "on"
+        "organizeImports": {
+          "level": "on",
+          "options": {
+            "groups": [
+              ["next", "next/**", "react", "react/**"],
+              {
+                "type": false
+              }
+            ],
+            "identifierOrder": "lexicographic"
+          }
+        }
       }
     }
   }

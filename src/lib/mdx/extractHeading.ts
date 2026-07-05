@@ -1,10 +1,8 @@
 import GithubSlugger from "github-slugger";
-import { unified } from "unified";
 import remarkParse from "remark-parse";
+import { unified } from "unified";
 import { visit } from "unist-util-visit";
-
 import { extractText } from "./extractText";
-
 import type { Heading } from "mdast";
 
 export interface HeadingInfo {

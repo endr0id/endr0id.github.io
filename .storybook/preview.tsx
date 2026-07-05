@@ -1,4 +1,4 @@
-import type { Preview, Decorator } from "@storybook/nextjs-vite";
+import type { Decorator, Preview } from "@storybook/nextjs-vite";
 import "../app/globals.css";
 
 const withTheme: Decorator = (Story, ctx) => {

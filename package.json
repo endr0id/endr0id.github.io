@@ -13,7 +13,8 @@
     "lint": "biome check",
     "format": "biome format --write",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "prepare": "husky"
   },
   "dependencies": {
     "@dev.icons/react": "^1.1.0",
@@ -48,11 +49,18 @@
     "@types/react-dom": "^19",
     "@vitest/browser-playwright": "^4.1.9",
     "@vitest/coverage-v8": "^4.1.9",
+    "husky": "^9.1.7",
+    "lint-staged": "^17.0.8",
     "playwright": "^1.61.0",
     "storybook": "^10.4.6",
     "tailwindcss": "^4",
     "typescript": "^5",
     "vite": "^8.0.16",
     "vitest": "^4.1.9"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx,json,jsonc}": [
+      "biome check --staged --write --no-errors-on-unmatched"
+    ]
   }
 }
