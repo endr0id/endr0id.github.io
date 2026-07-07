@@ -1,7 +1,6 @@
-import { afterEach } from "node:test";
-import { cleanup, fireEvent, render, screen } from "@testing-library/react";
-import { useTheme } from "next-themes";
 import { beforeEach, describe, expect, test, vi } from "vitest";
+import { fireEvent, render, screen } from "@testing-library/react";
+import { useTheme } from "next-themes";
 import ThemeSwitcher from "../ThemeSwitcher";
 
 vi.mock("next-themes", () => ({

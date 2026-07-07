@@ -1,6 +1,6 @@
+import type { Meta, StoryObj } from "@storybook/nextjs-vite";
 import { ThemeProvider } from "next-themes";
 import ThemeSwitcher from "./ThemeSwitcher";
-import type { Meta, StoryObj } from "@storybook/nextjs-vite";
 
 const meta = {
   title: "Components/ThemeSwitcher",

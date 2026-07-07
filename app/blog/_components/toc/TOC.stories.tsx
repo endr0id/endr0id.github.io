@@ -1,5 +1,5 @@
-import TOC from "./TOC";
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
+import TOC from "./TOC";
 
 const meta = {
   title: "Components/Blog/TOC",
