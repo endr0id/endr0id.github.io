@@ -8,12 +8,17 @@ import { Toggle } from "radix-ui";
 const ThemeSwitcher = () => {
   const [mounted, setMounted] = useState(false);
   const { theme, setTheme } = useTheme();
-
-  useEffect(() => setMounted(true), []);
+  const icon =
+    theme === "dark" ? (
+      <Moon data-testid="icon-moon" />
+    ) : (
+      <SunMedium data-testid="icon-sun" />
+    );
 
   const handleTheme = () =>
     theme === "light" ? setTheme("dark") : setTheme("light");
-  const icon = theme === "dark" ? <Moon /> : <SunMedium />;
+
+  useEffect(() => setMounted(true), []);
 
   // Preventing hydration mismatches between SSR and CSR
   // As the `theme` value is unavailable during SSR, rendering is deferred until the CSR is mounted
@@ -23,7 +28,7 @@ const ThemeSwitcher = () => {
     <Toggle.Root
       onPressedChange={handleTheme}
       className="flex items-center justify-center p-1 border rounded border-outline"
-      aria-label="Theme Switch"
+      data-testid="theme-switch-toggle"
     >
       {mounted && icon}
     </Toggle.Root>
