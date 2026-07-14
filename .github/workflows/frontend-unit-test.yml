@@ -1,0 +1,34 @@
+name: Frontend Unit Test
+
+on:
+  push:
+
+# NOTE: 同じブランチ・PRに対する古い実行中のワークフローをキャンセルし、
+# 無駄なCI実行時間を減らす
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      # NOTE: package.json の packageManager フィールドからpnpmのバージョンを
+      # 自動解決させるため、バージョン指定は行わない
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v6
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version-file: ".node-version"
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm ci
+
+      - name: Run tests
+        run: pnpm test
