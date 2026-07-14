@@ -1,0 +1,30 @@
+name: Delete Merged Branch
+
+on:
+  pull_request:
+    types: [closed]
+
+env:
+  PROTECTED_BRANCH_PRODUCTION: "main"
+  PROTECTED_BRANCH_DEFAULT: "develop"
+
+jobs:
+  delete-branch:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Delete head branch unless it is main or develop
+        run: |
+          HEAD_BRANCH="${{ github.event.pull_request.head.ref }}"
+          echo "Merged branch: $HEAD_BRANCH"
+          
+          if [ "$HEAD_BRANCH" = "$PROTECTED_BRANCH_PRODUCTION" ] || [ "$HEAD_BRANCH" = "$PROTECTED_BRANCH_DEFAULT" ]; then
+            echo "Skipping deletion for protected branch: $HEAD_BRANCH"
+          else
+            echo "Deleting branch: $HEAD_BRANCH"
+            gh api -X DELETE /repos/${{ github.repository }}/git/refs/heads/$HEAD_BRANCH
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

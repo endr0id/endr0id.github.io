@@ -1,9 +1,9 @@
+import type React from "react";
 import GithubSlugger from "github-slugger";
 import type { MDXComponents } from "mdx/types";
-import React, { JSX } from "react";
 
 type HeadingTag = keyof Pick<
-  JSX.IntrinsicElements,
+  React.JSX.IntrinsicElements,
   "h1" | "h2" | "h3" | "h4" | "h5" | "h6"
 >;
 

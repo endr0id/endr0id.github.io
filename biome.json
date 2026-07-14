@@ -7,7 +7,7 @@
   },
   "files": {
     "ignoreUnknown": true,
-    "includes": ["**", "!node_modules", "!.next", "!dist", "!build"]
+    "includes": ["**", "!node_modules", "!.next", "!dist", "!build", "!stories"]
   },
   "formatter": {
     "enabled": true,
@@ -20,6 +20,14 @@
       "recommended": true,
       "suspicious": {
         "noUnknownAtRules": "off"
+      },
+      "style": {
+        "useImportType": {
+          "level": "on",
+          "options": {
+            "style": "inlineType"
+          }
+        }
       }
     },
     "domains": {
@@ -30,8 +38,70 @@
   "assist": {
     "actions": {
       "source": {
-        "organizeImports": "on"
+        "organizeImports": {
+          "level": "on",
+          "options": {
+            "groups": [
+              ["next", "next/**", "react", "react/**"],
+              {
+                "type": false
+              }
+            ],
+            "identifierOrder": "lexicographic"
+          }
+        }
       }
     }
-  }
+  },
+  "overrides": [
+    {
+      "includes": [
+        "**/*.test.ts",
+        "**/*.test.tsx",
+        "**/*.test.js",
+        "**/*.test.jsx"
+      ],
+      "assist": {
+        "actions": {
+          "source": {
+            "organizeImports": {
+              "level": "on",
+              "options": {
+                "groups": [
+                  ["vitest", "vitest/**"],
+                  ["@testing-library/**"],
+                  ["next", "next/**", "react", "react/**"],
+                  { "type": false }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/*.stories.ts",
+        "**/*.stories.tsx",
+        "**/*.stories.js",
+        "**/*.stories.jsx"
+      ],
+      "assist": {
+        "actions": {
+          "source": {
+            "organizeImports": {
+              "level": "on",
+              "options": {
+                "groups": [
+                  ["@storybook", "@storybook/**"],
+                  ["next", "next/**", "react", "react/**"],
+                  { "type": false }
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
 }
