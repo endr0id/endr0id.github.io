@@ -52,5 +52,56 @@
         }
       }
     }
-  }
+  },
+  "overrides": [
+    {
+      "includes": [
+        "**/*.test.ts",
+        "**/*.test.tsx",
+        "**/*.test.js",
+        "**/*.test.jsx"
+      ],
+      "assist": {
+        "actions": {
+          "source": {
+            "organizeImports": {
+              "level": "on",
+              "options": {
+                "groups": [
+                  ["vitest", "vitest/**"],
+                  ["@testing-library/**"],
+                  ["next", "next/**", "react", "react/**"],
+                  { "type": false }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/*.stories.ts",
+        "**/*.stories.tsx",
+        "**/*.stories.js",
+        "**/*.stories.jsx"
+      ],
+      "assist": {
+        "actions": {
+          "source": {
+            "organizeImports": {
+              "level": "on",
+              "options": {
+                "groups": [
+                  ["@storybook", "@storybook/**"],
+                  ["next", "next/**", "react", "react/**"],
+                  { "type": false }
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
 }
