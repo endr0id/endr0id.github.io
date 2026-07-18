@@ -1,4 +1,5 @@
 import GithubSlugger from "github-slugger";
+import remarkFrontmatter from "remark-frontmatter";
 import remarkParse from "remark-parse";
 import { unified } from "unified";
 import { visit } from "unist-util-visit";
@@ -14,7 +15,10 @@ export interface HeadingInfo {
 export function extractHeading(markdown: string): HeadingInfo[] {
   const headings: HeadingInfo[] = [];
 
-  const tree = unified().use(remarkParse).parse(markdown);
+  const tree = unified()
+    .use(remarkParse)
+    .use(remarkFrontmatter)
+    .parse(markdown);
 
   const slugger = new GithubSlugger();
 
