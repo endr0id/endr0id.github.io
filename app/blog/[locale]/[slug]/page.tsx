@@ -1,23 +1,25 @@
 import { notFound } from "next/navigation";
 import { extractHeading } from "@/src/lib/mdx/extractHeading";
 import { getArticle } from "@/src/lib/mdx/getArticle";
-import TOC from "../_components/toc/TOC";
+import {
+  type ArticleParam,
+  getArticleParams,
+} from "@/src/lib/mdx/getArticleParams";
+import TOC from "../../_components/toc/TOC";
 
 export function generateStaticParams() {
-  return [
-    {
-      slug: "react",
-    },
-  ];
+  return getArticleParams();
 }
 
 export default async function BlogPage({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: Promise<ArticleParam>;
 }) {
-  const { slug } = await params;
-  const article = await getArticle(slug);
+  const { slug, locale } = await params;
+
+  // NOTE: URL直打ち等はgetArticleのreadFileで例外になる為、notFoundにする
+  const article = await getArticle(slug, locale).catch(() => null);
 
   if (!article) {
     notFound();
