@@ -1,61 +1,52 @@
+// @vitest-environment node
+
 import { beforeEach, describe, expect, test, vi } from "vitest";
-import * as fsPromises from "node:fs/promises";
+import { vol } from "memfs";
 import { getArticle } from "../getArticle";
 
-// NOTE: module.defaultとして返されることを検証するためのdummy Component
-const MockArticleComponent = () => null;
-
-// NOTE: ファイルI/Oを発生させない
+// NOTE: node:fs/promisesは複数機能を提供するため、そのままモックするとエラーになるのでreadFileだけモックする
 vi.mock("node:fs/promises", async (importOriginal) => {
-  // NOTE: node:fs/promisesはdefault exportも持つmoduleのため
-  // 全体を置換せずに元のmoduleを維持しreadFileだけモックに差し替える
   const actual = await importOriginal<typeof import("node:fs/promises")>();
+  const memfs = await import("memfs");
   return {
     ...actual,
-    readFile: vi.fn(),
+    readFile: memfs.fs.promises.readFile,
   };
 });
 
-// NOTE: getArticle内の `import(config.import)` はリテラルな文字列に解決されるため
-// 同じパスでモックを登録しておく必要がある
-vi.mock("@/app/blog/_contents/article.mdx", () => ({
-  default: MockArticleComponent,
+const MockComponent = () => null;
+const loadMDXComponentMock = vi.fn();
+
+// コンポーネント読み込みの結果だけ差し替え
+vi.mock("../loadMDXComponent.ts", () => ({
+  loadMDXComponent: (...args: unknown[]) => loadMDXComponentMock(...args),
 }));
 
-describe.skip("getArticle", () => {
+describe("getArticle", () => {
   beforeEach(() => {
-    vi.clearAllMocks();
+    vol.reset();
+    loadMDXComponentMock.mockReset();
+    loadMDXComponentMock.mockResolvedValue(MockComponent);
   });
 
-  test("存在しないslugを指定した場合、nullを返すこと", async () => {
-    const readFileSpy = vi.spyOn(fsPromises, "readFile");
-    const result = await getArticle("unknown-slug");
+  test("readFileが成功した場合、{ Component, markdown }の情報が返ってくること", async () => {
+    vol.fromJSON({
+      "articles/posts/ja/react/index.mdx": "# Reactの基礎",
+    });
 
-    expect(result).toBeNull();
-    expect(readFileSpy).not.toHaveBeenCalled();
-  });
-
-  test("存在するslugを指定した場合、正しいファイルパスでreadFileが呼ばれること", async () => {
-    const readFileSpy = vi
-      .spyOn(fsPromises, "readFile")
-      .mockResolvedValue("# Article Title");
-
-    await getArticle("react");
-
-    expect(readFileSpy).toHaveBeenCalledWith(
-      "app/blog/_contents/article.mdx",
-      "utf-8",
-    );
-  });
-
-  test("存在するslugを指定した場合、Componentとmarkdownを含むオブジェクトを返すこと", async () => {
-    vi.spyOn(fsPromises, "readFile").mockResolvedValue("# Article Title");
-
-    const result = await getArticle("react");
+    const result = await getArticle("ja", "react");
 
     expect(result).toEqual({
-      Component: MockArticleComponent,
-      markdown: "# Article Title",
+      Component: MockComponent,
+      markdown: "# Reactの基礎",
     });
+  });
+
+  test("readFileが失敗した場合、例外が投げられること", async () => {
+    vol.fromJSON({
+      "articles/posts/ja/react/index.mdx": "# Reactの基礎",
+    });
+
+    await expect(getArticle("fr", "react")).rejects.toThrow();
   });
 });
