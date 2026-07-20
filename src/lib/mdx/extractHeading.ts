@@ -15,14 +15,14 @@ export interface HeadingInfo {
 export function extractHeading(markdown: string): HeadingInfo[] {
   const headings: HeadingInfo[] = [];
 
-  const tree = unified()
+  const markdownAST = unified()
     .use(remarkParse)
     .use(remarkFrontmatter)
     .parse(markdown);
 
   const slugger = new GithubSlugger();
 
-  visit(tree, "heading", (node: Heading) => {
+  visit(markdownAST, "heading", (node: Heading) => {
     const title = extractText(node);
 
     headings.push({
