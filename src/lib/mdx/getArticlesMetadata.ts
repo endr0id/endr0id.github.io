@@ -10,7 +10,7 @@ export interface ArticleMetadata {
   tags: string[];
   author: string;
   published: boolean;
-  heroImages: string;
+  heroImage: string;
   locale: string;
   slug: string;
 }
@@ -20,28 +20,32 @@ export interface ArticleMetadata {
  * @param locale 指定した場合、その言語の記事のみに絞り込む
  */
 export async function getArticlesMetadata(
-  locale?: string,
+  targetLocale?: string,
 ): Promise<ArticleMetadata[]> {
   const params = await getArticleParams();
+  const targetParams = targetLocale
+    ? params.filter((param) => param.locale === targetLocale)
+    : params;
 
   const articlesMeta = await Promise.all(
-    params.map(async ({ slug, locale }) => {
+    targetParams.map(async ({ slug, locale }): Promise<ArticleMetadata> => {
       const filePath = `${ARTICLE_ROOT}/${slug}/${locale}/index.mdx`;
       const fileContent = await readFile(filePath, "utf-8");
       const { data } = matter(fileContent);
 
       return {
-        ...data,
-        locale,
+        title: data.title ?? "",
+        description: data.description ?? "",
+        date: data.date ?? "",
+        tags: Array.isArray(data.tags) ? data.tags : [],
+        author: data.author ?? "",
+        published: Boolean(data.published),
+        heroImage: data.heroImage ?? "",
         slug,
-      } as ArticleMetadata;
+        locale,
+      };
     }),
   );
 
-  return articlesMeta.filter((article) => {
-    const isPublished = article.published === true;
-    const matchesLocale = locale ? article.locale === locale : true;
-
-    return isPublished && matchesLocale;
-  });
+  return articlesMeta.filter((article) => article.published === true);
 }
