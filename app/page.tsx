@@ -7,11 +7,10 @@ import Card from "./_components/card/Card";
 const asciiPreStyle = clsx([
   "whitespace-pre",
   "text-[12px] lg:text-[15px]",
-  // 行間を標準（100%）にして上下の余計な隙間をなくす
   "leading-none",
-  // 微小に文字間を詰めて（-0.05em 等）左右の隙間を埋める
   "tracking-[-0.05em]",
 ]);
+
 export default async function Home() {
   const articles = await getArticlesMetadata("ja");
   return (
