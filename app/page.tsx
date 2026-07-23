@@ -5,14 +5,13 @@ import { getArticlesMetadata } from "@/src/lib/mdx/getArticlesMetadata";
 import Card from "./_components/card/Card";
 
 const asciiPreStyle = clsx([
-  // 等幅表示を保証
-  "select-none whitespace-pre",
-  // 等幅レンダリングの強化
-  "[font-variant-numeric:tabular-nums]",
-  // 行間とサイズ
-  "text-[12px] lg:text-[15px] leading-[120%]",
+  "whitespace-pre",
+  "text-[12px] lg:text-[15px]",
+  // 行間を標準（100%）にして上下の余計な隙間をなくす
+  "leading-none",
+  // 微小に文字間を詰めて（-0.05em 等）左右の隙間を埋める
+  "tracking-[-0.05em]",
 ]);
-
 export default async function Home() {
   const articles = await getArticlesMetadata("ja");
   return (
