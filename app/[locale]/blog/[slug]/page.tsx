@@ -5,7 +5,7 @@ import {
   type ArticleParam,
   getArticleParams,
 } from "@/src/lib/mdx/getArticleParams";
-import TOC from "../../_components/toc/TOC";
+import TOC from "../_components/toc/TOC";
 
 export function generateStaticParams() {
   return getArticleParams();
