@@ -67,4 +67,19 @@ describe("extractHeading", () => {
 
     expect(result).toEqual([{ id: "heading", title: "Heading", level: 1 }]);
   });
+
+  test("フロントマターが存在する場合、フロントマターの内容は無視して見出しのみ抽出すること", () => {
+    const markdown = [
+      "---",
+      "title: My Awesome Title",
+      "description: This is description",
+      "---",
+      "",
+      "## 概要",
+    ].join("\n");
+
+    const result = extractHeading(markdown);
+
+    expect(result).toEqual([{ id: "概要", title: "概要", level: 2 }]);
+  });
 });

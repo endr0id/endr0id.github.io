@@ -1,22 +1,23 @@
+import type { ComponentType } from "react";
 import { readFile } from "node:fs/promises";
+import { ARTICLE_ROOT } from "@/src/constants";
+import { loadMDXComponent } from "./loadMDXComponent";
 
-const ARTICLE_PATHS: Record<string, { file: string; import: string }> = {
-  react: {
-    file: "app/blog/_contents/article.mdx",
-    import: "@/app/blog/_contents/article.mdx",
-  },
-};
+interface ArticleMetadata {
+  Component: ComponentType<any>;
+  markdown: string;
+}
 
-export async function getArticle(slug: string) {
-  const config = ARTICLE_PATHS[slug];
-
-  if (!config) return null;
-
-  const markdown = await readFile(config.file, "utf-8");
-  const module = await import(config.import);
+export async function getArticle(
+  locale: string,
+  slug: string,
+): Promise<ArticleMetadata> {
+  const filePath = `${ARTICLE_ROOT}/${locale}/${slug}/index.mdx`;
+  const markdown = await readFile(filePath, "utf-8");
+  const Component = await loadMDXComponent(locale, slug);
 
   return {
-    Component: module.default,
+    Component,
     markdown,
   };
 }
