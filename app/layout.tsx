@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "next-themes";
 import Header from "./_components/header/Header";
+import ViewportBlur from "./_components/viewportBlur/ViewportBlur";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -34,6 +35,7 @@ export default function RootLayout({
       <meta name="viewport" content="width=device-width initial-scale=1.0" />
       <body className="min-h-full flex flex-col">
         <ThemeProvider enableSystem={false}>
+          <ViewportBlur />
           <Header />
           {children}
         </ThemeProvider>
