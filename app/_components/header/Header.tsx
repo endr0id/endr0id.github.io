@@ -3,7 +3,7 @@ import ThemeSwitcher from "../themeSwitcher/ThemeSwitcher";
 
 const Header = () => {
   return (
-    <header className="sticky top-0 z-50 w-full bg-background/80 backdrop-blur-md">
+    <header className="sticky top-0 z-50 w-full">
       <div className="flex justify-between items-center px-6 h-14">
         <Link
           href="/"
