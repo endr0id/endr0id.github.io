@@ -1,6 +1,6 @@
 import Link from "next/link";
 import clsx from "clsx";
-import { headline } from "@/src/constants";
+import { hero } from "@/src/constants";
 import { getArticlesMetadata } from "@/src/lib/mdx/getArticlesMetadata";
 import Card from "./_components/card/Card";
 
@@ -15,8 +15,11 @@ export default async function Home() {
   const articles = await getArticlesMetadata("ja");
   return (
     <div className="px-10">
-      <div className="my-16 text-center">
-        <pre className={asciiPreStyle}>{headline}</pre>
+      <div className="flex flex-col gap-6 mt-16 mb-8 text-center">
+        <pre className={asciiPreStyle}>{hero.title}</pre>
+        <pre className="text-neutral-500 dark:text-neutral-400">
+          {hero.description}
+        </pre>
       </div>
       <section>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
