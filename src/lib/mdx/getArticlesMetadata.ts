@@ -7,6 +7,7 @@ export interface ArticleMetadata {
   title: string;
   description: string;
   date: string;
+  updatedDate: string;
   tags: string[];
   author: string;
   published: boolean;
@@ -37,6 +38,7 @@ export async function getArticlesMetadata(
         title: data.title ?? "",
         description: data.description ?? "",
         date: data.date ?? "",
+        updatedDate: data.updatedDate ?? "",
         tags: Array.isArray(data.tags) ? data.tags : [],
         author: data.author ?? "",
         published: Boolean(data.published),
