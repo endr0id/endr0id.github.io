@@ -1,6 +1,6 @@
 import Link from "next/link";
 import clsx from "clsx";
-import { hero } from "@/src/constants";
+import { heroTitle } from "@/src/constants";
 import { getArticlesMetadata } from "@/src/lib/mdx/getArticlesMetadata";
 import Card from "./_components/card/Card";
 
@@ -19,7 +19,7 @@ export default async function Home() {
               "aria-hidden=true",
             ])}
           >
-            {hero.title}
+            {heroTitle}
           </pre>
         </h1>
         <p className="mt-4 text-neutral-500 dark:text-neutral-400">
