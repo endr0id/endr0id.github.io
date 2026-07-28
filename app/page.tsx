@@ -31,14 +31,15 @@ export default async function Home() {
         </p>
       </section>
       <section>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
           {articles.map((article) => (
-            <Link
+            <Card
               key={article.slug}
-              href={`/${article.locale}/blog/${article.slug}`}
-            >
-              <Card title={article.title} description={article.description} />
-            </Link>
+              path={`/${article.locale}/blog/${article.slug}`}
+              imagePath={`articles/posts/${article.slug}/${article.heroImage}`}
+              title={article.title}
+              description={article.description}
+            />
           ))}
         </div>
       </section>
