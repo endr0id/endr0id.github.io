@@ -7,10 +7,11 @@ export interface ArticleMetadata {
   title: string;
   description: string;
   date: string;
+  updatedDate: string;
   tags: string[];
   author: string;
   published: boolean;
-  heroImage: string;
+  heroImage: string | null;
   locale: string;
   slug: string;
 }
@@ -37,10 +38,11 @@ export async function getArticlesMetadata(
         title: data.title ?? "",
         description: data.description ?? "",
         date: data.date ?? "",
+        updatedDate: data.updatedDate ?? "",
         tags: Array.isArray(data.tags) ? data.tags : [],
         author: data.author ?? "",
         published: Boolean(data.published),
-        heroImage: data.heroImage ?? "",
+        heroImage: data.heroImage ?? null,
         slug,
         locale,
       };
