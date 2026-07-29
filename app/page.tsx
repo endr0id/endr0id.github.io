@@ -30,7 +30,7 @@ export default async function Home() {
           </span>
         </p>
       </section>
-      <section>
+      <section className="max-w-[1222px] mx-auto">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
           {articles.map((article) => (
             <Card

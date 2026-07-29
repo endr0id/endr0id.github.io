@@ -13,7 +13,7 @@ const Card = (props: CardProps) => {
   const { path, imagePath, title, description } = props;
 
   return (
-    <article className="rounded-lg overflow-hidden">
+    <article className="w-full rounded-lg overflow-hidden">
       <Link href={path} className="flex flex-col gap-4">
         <div className="relative aspect-3/2 w-full overflow-hidden rounded-lg">
           <Image
