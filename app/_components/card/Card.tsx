@@ -13,7 +13,7 @@ const Card = (props: CardProps) => {
   const { path, imagePath, title, description } = props;
 
   return (
-    <article className="w-full relative rounded-lg overflow-hidden">
+    <article className="w-full relative overflow-hidden">
       <Link href={path} className="flex flex-col gap-4">
         <AspectRatio.Root ratio={3 / 2}>
           <Image
@@ -21,7 +21,7 @@ const Card = (props: CardProps) => {
             alt=""
             fill
             loading="eager"
-            className="object-cover"
+            className="object-cover rounded-xl"
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
         </AspectRatio.Root>

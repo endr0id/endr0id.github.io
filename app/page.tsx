@@ -30,18 +30,31 @@ export default async function Home() {
           </span>
         </p>
       </section>
-      <section className="max-w-[1222px] mx-auto">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+      <section className="max-w-[1280px] mx-auto">
+        <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-y-4">
           {articles.map((article) => (
-            <Card
+            <li
               key={article.slug}
-              path={`/${article.locale}/blog/${article.slug}`}
-              imagePath={`articles/posts/${article.slug}/${article.heroImage}`}
-              title={article.title}
-              description={article.description}
-            />
+              className={clsx(
+                "relative list-none sm:px-8 first:sm:pl-0 last:sm:pr-0",
+                "sm:[&:nth-child(2n)>[aria-hidden]]:hidden",
+                "lg:[&:nth-child(2n)>[aria-hidden]]:block",
+                "lg:[&:nth-child(3n)>[aria-hidden]]:hidden",
+              )}
+            >
+              <Card
+                path={`/${article.locale}/blog/${article.slug}`}
+                imagePath={`articles/posts/${article.slug}/${article.heroImage}`}
+                title={article.title}
+                description={article.description}
+              />
+              <div
+                aria-hidden="true"
+                className="absolute top-0 right-0 hidden h-full w-px bg-neutral-200 dark:bg-neutral-900 sm:block"
+              />
+            </li>
           ))}
-        </div>
+        </ul>
       </section>
     </div>
   );
