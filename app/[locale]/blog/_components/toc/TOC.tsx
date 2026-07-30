@@ -9,7 +9,7 @@ const TOC = ({ headings }: { headings: HeadingInfo[] }) => {
   const activeId = useActiveHeading();
 
   return (
-    <nav>
+    <nav aria-label="Table of Contents">
       <ul>
         {headings.map((heading) => (
           <li
