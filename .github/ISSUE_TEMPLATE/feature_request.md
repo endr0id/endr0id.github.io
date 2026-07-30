@@ -1,7 +1,7 @@
 ---
 name: "Feature request"
 about: "Adding new functionality to this project"
-title: "[Feature] "
+title: "feat: "
 labels: enhancement
 assignees: ""
 ---
