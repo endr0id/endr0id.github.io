@@ -14,12 +14,10 @@ export interface HeadingInfo {
 
 export function extractHeading(markdown: string): HeadingInfo[] {
   const headings: HeadingInfo[] = [];
-
   const markdownAST = unified()
     .use(remarkParse)
     .use(remarkFrontmatter)
     .parse(markdown);
-
   const slugger = new GithubSlugger();
 
   visit(markdownAST, "heading", (node: Heading) => {
@@ -32,5 +30,5 @@ export function extractHeading(markdown: string): HeadingInfo[] {
     });
   });
 
-  return headings;
+  return headings.filter((h) => h.level === 2 || h.level === 3);
 }
