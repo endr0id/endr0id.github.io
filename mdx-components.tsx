@@ -1,4 +1,5 @@
 import type React from "react";
+import { clsx } from "clsx";
 import GithubSlugger from "github-slugger";
 import type { MDXComponents } from "mdx/types";
 
@@ -25,91 +26,136 @@ const createHeading = (
 
 export function useMDXComponents(): MDXComponents {
   const slugger = new GithubSlugger();
-
   return {
     // Heading
     h1: createHeading(
       slugger,
       "h1",
-      "mt-12 mb-6 text-5xl font-semibold tracking-tight",
+      clsx(
+        "mt-12 mb-6",
+        "text-article-h1 sm:text-3xl lg:text-4xl",
+        "font-semibold tracking-tight",
+      ),
     ),
-
     h2: createHeading(
       slugger,
       "h2",
-      "mt-10 mb-5 text-4xl font-semibold tracking-tight",
+      clsx(
+        "mt-10 mb-5",
+        "text-article-h2 sm:text-2xl lg:text-3xl",
+        "font-semibold tracking-tight",
+      ),
     ),
-
     h3: createHeading(
       slugger,
       "h3",
-      "mt-8 mb-4 text-3xl font-semibold tracking-tight",
+      clsx(
+        "mt-8 mb-4",
+        "text-article-h3 sm:text-xl lg:text-2xl",
+        "font-semibold tracking-tight",
+      ),
     ),
-
     h4: createHeading(
       slugger,
       "h4",
-      "mt-6 mb-3 text-2xl font-semibold tracking-tight",
+      clsx("mt-6 mb-3", "text-article-h4 sm:text-lg lg:text-xl", "font-bold"),
     ),
-
     h5: createHeading(
       slugger,
       "h5",
-      "mt-6 mb-2 text-xl font-semibold tracking-tight",
+      clsx("mt-6 mb-2", "text-base", "font-semibold tracking-tight"),
     ),
-
     h6: createHeading(
       slugger,
       "h6",
-      "mt-4 mb-2 text-lg font-semibold tracking-tight",
+      clsx("mt-4 mb-2", "text-sm", "font-semibold tracking-tight"),
     ),
 
     // Paragraph
-    p: ({ children }) => <p className="my-4 leading-8">{children}</p>,
+    p: ({ children }) => (
+      <p className={clsx("my-4", "text-article-body lg:text-[17px] leading-8")}>
+        {children}
+      </p>
+    ),
+
+    // List
+    ul: ({ children }) => (
+      <ul
+        className={clsx(
+          "my-4 pl-6 space-y-2",
+          "list-disc",
+          "text-article-body lg:text-[17px]",
+        )}
+      >
+        {children}
+      </ul>
+    ),
+    ol: ({ children }) => (
+      <ol
+        className={clsx(
+          "my-4 pl-6 space-y-2",
+          "list-decimal",
+          "text-article-body lg:text-[17px]",
+        )}
+      >
+        {children}
+      </ol>
+    ),
+    li: ({ children }) => <li className="leading-7">{children}</li>,
+
+    // Fanced code block
+    code: ({ children }) => (
+      <code
+        className={clsx(
+          "px-1.5 py-0.5",
+          "rounded",
+          "font-mono text-article-code sm:text-[15px] lg:text-base",
+          "bg-neutral-300 dark:bg-neutral-800",
+        )}
+      >
+        {children}
+      </code>
+    ),
+
+    // Code block
+    pre: ({ children }) => (
+      <pre
+        className={clsx(
+          "my-6 p-4",
+          "overflow-x-auto border border-outline rounded-lg",
+          "bg-neutral-300 dark:bg-neutral-800",
+        )}
+      >
+        {children}
+      </pre>
+    ),
 
     // Link
     a: ({ children, ...props }) => (
       <a
-        className="font-medium text-sky-600 hover:text-sky-500 dark:text-sky-400"
+        className={clsx(
+          "font-medium",
+          "text-sky-600 hover:text-sky-500 dark:text-sky-400",
+        )}
         {...props}
       >
         {children}
       </a>
     ),
 
-    // List
-    ul: ({ children }) => (
-      <ul className="my-4 list-disc space-y-2 pl-6">{children}</ul>
-    ),
-
-    ol: ({ children }) => (
-      <ol className="my-4 list-decimal space-y-2 pl-6">{children}</ol>
-    ),
-
-    li: ({ children }) => <li className="leading-7">{children}</li>,
-
     // Quote
     blockquote: ({ children }) => (
-      <blockquote className="my-6 border-l-4 border-outline pl-4 italic">
+      <blockquote
+        className={clsx(
+          "my-6 pl-4 border-l-4 border-outline",
+          "italic text-article-body lg:text-[17px]",
+        )}
+      >
         {children}
       </blockquote>
     ),
 
     // Horizontal Rule
     hr: () => <hr className="my-10 border-outline" />,
-
-    // Fenced Code Block
-    code: ({ children }) => (
-      <code className="px-1.5 py-0.5 rounded font-mono text-sm bg-neutral-300  dark:bg-neutral-800">
-        {children}
-      </code>
-    ),
-
-    // Code Block
-    pre: ({ children }) => (
-      <pre className="my-6 p-4 overflow-x-auto border border-outline rounded-lg bg-neutral-300 dark:bg-neutral-800">
-        {children}
-      </pre>
-    ),
   };
 }
