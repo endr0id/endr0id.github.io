@@ -36,7 +36,7 @@ export default async function BlogPage({
           <Component />
         </article>
       </main>
-      <aside className="hidden lg:block self-start sticky top-20">
+      <aside className="hidden lg:block self-start sticky top-[30vh]">
         <TOC headings={headings} />
       </aside>
     </div>
