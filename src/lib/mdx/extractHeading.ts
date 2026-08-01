@@ -14,15 +14,19 @@ export interface HeadingInfo {
 
 export function extractHeading(markdown: string): HeadingInfo[] {
   const headings: HeadingInfo[] = [];
-
   const markdownAST = unified()
     .use(remarkParse)
     .use(remarkFrontmatter)
     .parse(markdown);
-
   const slugger = new GithubSlugger();
 
+  const TOC_LEVELS = [2, 3] as const;
+
   visit(markdownAST, "heading", (node: Heading) => {
+    if (!TOC_LEVELS.includes(node.depth as (typeof TOC_LEVELS)[number])) {
+      return;
+    }
+
     const title = extractText(node);
 
     headings.push({

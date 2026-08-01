@@ -29,12 +29,14 @@ export default async function BlogPage({
   const headings = extractHeading(markdown);
 
   return (
-    <div className="grid grid-cols-3 gap-4">
-      <aside />
-      <div>
-        <Component />
-      </div>
-      <aside className="self-start sticky top-20">
+    <div className="grid grid-cols-1 lg:grid-cols-[1fr_min(880px,100%)_1fr] gap-8 lg:gap-10 px-4 lg:px-8">
+      <aside className="hidden lg:block" aria-hidden="true" />
+      <main className="min-w-0 w-full mx-auto">
+        <article>
+          <Component />
+        </article>
+      </main>
+      <aside className="hidden lg:block self-start sticky top-[30vh]">
         <TOC headings={headings} />
       </aside>
     </div>
