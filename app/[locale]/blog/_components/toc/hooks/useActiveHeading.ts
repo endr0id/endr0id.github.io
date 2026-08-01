@@ -17,7 +17,7 @@ export const useActiveHeading = () => {
     );
 
     // NOTE: 取得したHeadingを監視対象として登録
-    document.querySelectorAll("h1, h2, h3, h4, h5, h6").forEach((heading) => {
+    document.querySelectorAll("h2, h3").forEach((heading) => {
       observer.observe(heading);
     });
 
