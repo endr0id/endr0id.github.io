@@ -13,7 +13,7 @@ const LINE_CENTER_X = ICON_SIZE / 2; // 線とアイコンの共通の中心x座
 const TOC = ({ headings }: { headings: HeadingInfo[] }) => {
   const activeId = useActiveHeading();
   const { scrollRef, updateFadeState, canScrollUp, canScrollDown } =
-    useTOCScroll();
+    useTOCScroll(activeId);
 
   return (
     <nav aria-label="Table of Contents" className="w-full max-w-[350px]">
@@ -44,7 +44,11 @@ const TOC = ({ headings }: { headings: HeadingInfo[] }) => {
             const isActive = activeId === heading.id;
 
             return (
-              <li key={heading.id} className="relative py-2 pl-4">
+              <li
+                key={heading.id}
+                data-heading-id={heading.id}
+                className="relative py-2 pl-4"
+              >
                 {isActive && (
                   <Eye
                     size={ICON_SIZE}
