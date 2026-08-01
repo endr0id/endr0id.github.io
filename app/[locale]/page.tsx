@@ -1,11 +1,26 @@
-import Link from "next/link";
+import { notFound } from "next/navigation";
 import clsx from "clsx";
+import { isLocale, locales } from "@/config/locale";
 import { heroTitle } from "@/src/constants";
 import { getArticlesMetadata } from "@/src/lib/mdx/getArticlesMetadata";
-import Card from "./_components/card/Card";
+import Card from "../_components/card/Card";
 
-export default async function Home() {
-  const articles = await getArticlesMetadata("ja");
+export function generateStaticParams() {
+  return locales.map((locale) => ({ locale }));
+}
+
+export default async function Page({
+  params,
+}: Readonly<{
+  params: Promise<{ locale: string }>;
+}>) {
+  const { locale } = await params;
+
+  if (!isLocale(locale)) {
+    notFound();
+  }
+
+  const articles = await getArticlesMetadata(locale);
   return (
     <div className="px-4 sm:px-6 lg:px-10">
       <section className="mt-16 mb-8 text-center">

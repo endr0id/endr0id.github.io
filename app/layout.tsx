@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "next-themes";
+import { locales } from "@/config/locale";
 import Header from "./_components/header/Header";
 import ViewportBlur from "./_components/viewportBlur/ViewportBlur";
 
@@ -21,14 +22,22 @@ export const metadata: Metadata = {
     "A personal developer blog by endr0id. Documenting daily learnings, tech notes, and things I build.",
 };
 
-export default function RootLayout({
+export function generateStaticParams() {
+  return locales.map((locale) => ({ locale }));
+}
+
+export default async function RootLayout({
   children,
+  params,
 }: Readonly<{
   children: React.ReactNode;
+  params: Promise<{ locale: string }>;
 }>) {
+  const { locale } = await params;
+
   return (
     <html
-      lang="en"
+      lang={locale}
       className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       suppressHydrationWarning
     >
