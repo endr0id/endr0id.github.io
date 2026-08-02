@@ -1,13 +1,9 @@
 import { notFound } from "next/navigation";
 import clsx from "clsx";
-import { isLocale, locales } from "@/config/locale";
+import { isLocale } from "@/config/locale";
 import { heroTitle } from "@/src/constants";
 import { getArticlesMetadata } from "@/src/lib/mdx/getArticlesMetadata";
-import Card from "../_components/card/Card";
-
-export function generateStaticParams() {
-  return locales.map((locale) => ({ locale }));
-}
+import Card from "./_components/card/Card";
 
 export default async function Page({
   params,
