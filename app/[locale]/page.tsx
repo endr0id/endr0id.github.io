@@ -1,6 +1,4 @@
-import { notFound } from "next/navigation";
 import clsx from "clsx";
-import { isLocale } from "@/config/locale";
 import { heroTitle } from "@/src/constants";
 import { getArticlesMetadata } from "@/src/lib/mdx/getArticlesMetadata";
 import Card from "./_components/card/Card";
@@ -11,10 +9,6 @@ export default async function Page({
   params: Promise<{ locale: string }>;
 }>) {
   const { locale } = await params;
-
-  if (!isLocale(locale)) {
-    notFound();
-  }
 
   const articles = await getArticlesMetadata(locale);
   return (

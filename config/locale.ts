@@ -1,7 +1,10 @@
-export const locales = ["ja", "en"] as const;
+export const locales = ["en", "ja"] as const;
 export type Locale = (typeof locales)[number];
+const supportedLocales: ReadonlySet<string> = new Set(locales);
 
-// TODO: 言語判別処理用意後は削除する
-export const defaultLocale: Locale = "ja";
-export const isLocale = (value: string): value is Locale =>
-  locales.includes(value as Locale);
+// NOTE: ネゴシエーション失敗時のfallback
+export const defaultLocale: Locale = locales[0];
+
+export const isLocale = (value: string): value is Locale => {
+  return supportedLocales.has(value);
+};
