@@ -1,4 +1,5 @@
 import Link from "next/link";
+import LocaleSwitcher from "../localeSwitcher/localeSwitcher";
 import ThemeSwitcher from "../themeSwitcher/ThemeSwitcher";
 
 const Header = () => {
@@ -11,7 +12,10 @@ const Header = () => {
         >
           deVlog
         </Link>
-        <ThemeSwitcher />
+        <div className="flex items-center gap-4">
+          <LocaleSwitcher />
+          <ThemeSwitcher />
+        </div>
       </div>
     </header>
   );
