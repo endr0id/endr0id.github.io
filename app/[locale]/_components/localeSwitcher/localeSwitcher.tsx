@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { usePathname } from "next/navigation";
 import clsx from "clsx";
 import { Separator } from "radix-ui";
@@ -31,7 +32,7 @@ const LocaleSwitcher = () => {
                   className="mx-2 w-[1px] bg-neutral-300 dark:bg-neutral-700"
                 />
               )}
-              <a
+              <Link
                 href={getHref(locale)}
                 hrefLang={locale}
                 aria-current={isActive ? "page" : undefined}
@@ -43,7 +44,7 @@ const LocaleSwitcher = () => {
                 )}
               >
                 {locale.toUpperCase()}
-              </a>
+              </Link>
             </li>
           );
         })}

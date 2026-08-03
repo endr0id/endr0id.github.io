@@ -1,4 +1,4 @@
-import { ThemeProvider } from "next-themes";
+import { ThemeProvider } from "@teispace/next-themes";
 import { locales } from "@/config/locale";
 import Header from "./_components/header/Header";
 import ViewportBlur from "./_components/viewportBlur/ViewportBlur";
