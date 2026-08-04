@@ -103,7 +103,7 @@ export function useMDXComponents(): MDXComponents {
     ),
     li: ({ children }) => <li className="leading-7">{children}</li>,
 
-    // Fanced code block
+    // Inline Code
     code: ({ children }) => (
       <code
         className={clsx(
@@ -117,7 +117,7 @@ export function useMDXComponents(): MDXComponents {
       </code>
     ),
 
-    // Code block
+    // Code Block
     pre: ({ children }) => (
       <pre
         className={clsx(
@@ -157,5 +157,42 @@ export function useMDXComponents(): MDXComponents {
 
     // Horizontal Rule
     hr: () => <hr className="my-10 border-outline" />,
+
+    // Table
+    table: ({ children }) => (
+      <div
+        className={clsx(
+          "my-6 overflow-x-auto",
+          "border border-outline rounded-lg",
+        )}
+      >
+        <table
+          className={clsx(
+            "w-full border-collapse",
+            "text-article-body text-sm lg:text-[15px]",
+          )}
+        >
+          {children}
+        </table>
+      </div>
+    ),
+    thead: ({ children }) => <thead>{children}</thead>,
+    tbody: ({ children }) => <tbody>{children}</tbody>,
+    tr: ({ children }) => (
+      <tr className="border-b border-outline last:border-b-0">{children}</tr>
+    ),
+    th: ({ children }) => (
+      <th
+        scope="col"
+        className={clsx(
+          "px-4 py-2",
+          "text-left font-semibold",
+          "border-b border-outline",
+        )}
+      >
+        {children}
+      </th>
+    ),
+    td: ({ children }) => <td className="px-4 py-2">{children}</td>,
   };
 }
