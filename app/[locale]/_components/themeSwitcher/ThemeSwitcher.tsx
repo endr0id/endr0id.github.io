@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useTheme } from "@teispace/next-themes";
 import { Moon, SunMedium } from "lucide-react";
-import { useTheme } from "next-themes";
 import { Toggle } from "radix-ui";
 
 const ThemeSwitcher = () => {

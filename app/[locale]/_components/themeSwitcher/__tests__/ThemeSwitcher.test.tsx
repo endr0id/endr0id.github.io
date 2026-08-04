@@ -1,9 +1,9 @@
 import { beforeEach, describe, expect, test, vi } from "vitest";
 import { fireEvent, render, screen } from "@testing-library/react";
-import { useTheme } from "next-themes";
+import { useTheme } from "@teispace/next-themes";
 import ThemeSwitcher from "../ThemeSwitcher";
 
-vi.mock("next-themes", () => ({
+vi.mock("@teispace/next-themes", () => ({
   useTheme: vi.fn(),
 }));
 
