@@ -169,7 +169,7 @@ export function useMDXComponents(): MDXComponents {
         <table
           className={clsx(
             "w-full border-collapse",
-            "text-article-body lg:text-[17px]",
+            "text-article-body text-sm lg:text-[15px]",
           )}
         >
           {children}
