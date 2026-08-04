@@ -1,9 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { ThemeProvider } from "next-themes";
-import Header from "./_components/header/Header";
-import ViewportBlur from "./_components/viewportBlur/ViewportBlur";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -21,25 +18,23 @@ export const metadata: Metadata = {
     "A personal developer blog by endr0id. Documenting daily learnings, tech notes, and things I build.",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
+  params,
 }: Readonly<{
   children: React.ReactNode;
+  params: Promise<{ locale: string }>;
 }>) {
+  const { locale } = await params;
+
   return (
     <html
-      lang="en"
+      lang={locale}
       className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       suppressHydrationWarning
     >
       <meta name="viewport" content="width=device-width initial-scale=1.0" />
-      <body className="min-h-full flex flex-col">
-        <ThemeProvider enableSystem={false}>
-          <ViewportBlur />
-          <Header />
-          {children}
-        </ThemeProvider>
-      </body>
+      <body className="min-h-full flex flex-col">{children}</body>
     </html>
   );
 }
