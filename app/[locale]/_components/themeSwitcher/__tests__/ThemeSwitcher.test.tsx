@@ -3,7 +3,7 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import { useTheme } from "@teispace/next-themes";
 import ThemeSwitcher from "../ThemeSwitcher";
 
-vi.mock("next-themes", () => ({
+vi.mock("@teispace/next-themes", () => ({
   useTheme: vi.fn(),
 }));
 
