@@ -103,7 +103,7 @@ export function useMDXComponents(): MDXComponents {
     ),
     li: ({ children }) => <li className="leading-7">{children}</li>,
 
-    // Fanced code block
+    // Inline Code
     code: ({ children }) => (
       <code
         className={clsx(
@@ -117,7 +117,7 @@ export function useMDXComponents(): MDXComponents {
       </code>
     ),
 
-    // Code block
+    // Code Block
     pre: ({ children }) => (
       <pre
         className={clsx(
@@ -177,7 +177,7 @@ export function useMDXComponents(): MDXComponents {
       </div>
     ),
     thead: ({ children }) => <thead>{children}</thead>,
-    tbody: ({ children }) => <tbody className="">{children}</tbody>,
+    tbody: ({ children }) => <tbody>{children}</tbody>,
     tr: ({ children }) => (
       <tr className="border-b border-outline last:border-b-0">{children}</tr>
     ),
