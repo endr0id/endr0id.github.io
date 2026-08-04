@@ -157,5 +157,42 @@ export function useMDXComponents(): MDXComponents {
 
     // Horizontal Rule
     hr: () => <hr className="my-10 border-outline" />,
+
+    // Table
+    table: ({ children }) => (
+      <div
+        className={clsx(
+          "my-6 overflow-x-auto",
+          "border border-outline rounded-lg",
+        )}
+      >
+        <table
+          className={clsx(
+            "w-full border-collapse",
+            "text-article-body lg:text-[17px]",
+          )}
+        >
+          {children}
+        </table>
+      </div>
+    ),
+    thead: ({ children }) => <thead>{children}</thead>,
+    tbody: ({ children }) => <tbody className="">{children}</tbody>,
+    tr: ({ children }) => (
+      <tr className="border-b border-outline last:border-b-0">{children}</tr>
+    ),
+    th: ({ children }) => (
+      <th
+        scope="col"
+        className={clsx(
+          "px-4 py-2",
+          "text-left font-semibold",
+          "border-b border-outline",
+        )}
+      >
+        {children}
+      </th>
+    ),
+    td: ({ children }) => <td className="px-4 py-2">{children}</td>,
   };
 }
