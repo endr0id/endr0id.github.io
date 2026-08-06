@@ -33,7 +33,7 @@ const CareerTimeline = () => {
                 <h3 className="text-lg font-semibold mb-2">{item.title}</h3>
                 <p
                   className={clsx([
-                    "text-base font-normal",
+                    "text-sm font-normal whitespace-pre-line",
                     item.link && "mb-4",
                   ])}
                 >
