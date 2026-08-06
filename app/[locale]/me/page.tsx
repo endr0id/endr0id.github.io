@@ -1,5 +1,6 @@
 import clsx from "clsx";
 import { Avatar, Separator } from "radix-ui";
+import CareerTimeline from "./_components/careerTimeline/careerTimeline";
 import TechStack from "./_components/techStack/techStack";
 import { bioText } from "./_constants";
 
@@ -46,7 +47,9 @@ export default function Page() {
       <div className="col-start-2">
         <h2>ENGINEER CAREER</h2>
 
-        <div>Timeline...</div>
+        <section aria-labelledby="engineer-career">
+          <CareerTimeline />
+        </section>
       </div>
     </main>
   );
