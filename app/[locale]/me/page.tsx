@@ -1,5 +1,6 @@
 import clsx from "clsx";
 import { Avatar, Separator } from "radix-ui";
+import TechStack from "./_components/techStack/techStack";
 import { bioText } from "./_constants";
 
 export default function Page() {
@@ -34,9 +35,7 @@ export default function Page() {
       </section>
 
       <div className="col-start-2 mt-8">
-        <h2>Tech Stack</h2>
-
-        <div>Frontend / Backend...</div>
+        <TechStack />
       </div>
 
       <Separator.Root
