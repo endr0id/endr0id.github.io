@@ -1,8 +1,8 @@
 import clsx from "clsx";
 import { Separator } from "radix-ui";
 import Avatar from "@/src/components/avatar/Avatar";
-import CareerTimeline from "./_components/careerTimeline/careerTimeline";
-import TechStack from "./_components/techStack/techStack";
+import TechStack from "./_components/techStack/TechStack";
+import CareerTimeline from "./_components/timeline/Timeline";
 import { bioText } from "./_constants";
 
 export default function Page() {
