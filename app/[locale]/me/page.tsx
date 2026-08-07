@@ -1,5 +1,6 @@
 import clsx from "clsx";
-import { Avatar, Separator } from "radix-ui";
+import { Separator } from "radix-ui";
+import Avatar from "@/src/conponents/avatar/avatar";
 import CareerTimeline from "./_components/careerTimeline/careerTimeline";
 import TechStack from "./_components/techStack/techStack";
 import { bioText } from "./_constants";
@@ -7,17 +8,7 @@ import { bioText } from "./_constants";
 export default function Page() {
   return (
     <main className="grid grid-cols-[120px_1fr] gap-x-4 gap-y-8 mx-auto lg:w-[1024px]">
-      <Avatar.Root className="col-start-1 row-start-1  inline-flex rounded-full overflow-hidden size-[120px]">
-        <Avatar.Fallback
-          className={clsx([
-            "flex items-center justify-center",
-            "font-medium text-neutral-300 dark:text-neutral-500",
-            "size-full bg-black dark:bg-white",
-          ])}
-        >
-          WE
-        </Avatar.Fallback>
-      </Avatar.Root>
+      <Avatar size="size-[120px]" />
 
       <section aria-labelledby="profile" className="col-start-2 row-start-1">
         <h1 className="text-3xl font-bold tracking-tight">Wataru Endo</h1>

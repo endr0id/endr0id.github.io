@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Avatar from "@/src/conponents/avatar/avatar";
 import LocaleSwitcher from "../localeSwitcher/localeSwitcher";
 import ThemeSwitcher from "../themeSwitcher/ThemeSwitcher";
 
@@ -15,6 +16,9 @@ const Header = () => {
         <div className="flex items-center gap-4">
           <LocaleSwitcher />
           <ThemeSwitcher />
+          <Link href={"/me"}>
+            <Avatar size="sm" />
+          </Link>
         </div>
       </div>
     </header>
