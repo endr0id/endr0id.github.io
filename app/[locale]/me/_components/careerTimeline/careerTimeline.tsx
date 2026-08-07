@@ -24,7 +24,7 @@ const CareerTimeline = () => {
                 className={clsx([
                   "absolute size-3",
                   "mt-1.5 -start-1.5",
-                  "rounded-full border border-buffer",
+                  "rounded-full border",
                   "bg-current",
                 ])}
               ></div>

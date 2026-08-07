@@ -6,7 +6,7 @@ import { bioText } from "./_constants";
 
 export default function Page() {
   return (
-    <main className="grid grid-cols-[120px_1fr] gap-x-4 mx-auto lg:w-[1280px]">
+    <main className="grid grid-cols-[120px_1fr] gap-x-4 gap-y-8 mx-auto lg:w-[1024px]">
       <Avatar.Root className="col-start-1 row-start-1  inline-flex rounded-full overflow-hidden size-[120px]">
         <Avatar.Fallback
           className={clsx([
@@ -35,7 +35,7 @@ export default function Page() {
         </p>
       </section>
 
-      <div className="col-start-2 mt-8">
+      <div className="col-start-2">
         <TechStack />
       </div>
 
@@ -45,9 +45,16 @@ export default function Page() {
       />
 
       <div className="col-start-2">
-        <h2>ENGINEER CAREER</h2>
+        <h2 className="mb-4">ENGINEER CAREER</h2>
 
-        <section aria-labelledby="engineer-career">
+        <section
+          aria-labelledby="engineer-career"
+          className={clsx(
+            "max-h-[60vh] overflow-y-auto",
+            "[scrollbar-width:none]", // Firefox
+            "[&::-webkit-scrollbar]:hidden", // Chrome, Safari, Edge
+          )}
+        >
           <CareerTimeline />
         </section>
       </div>
