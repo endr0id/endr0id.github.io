@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import { Separator } from "radix-ui";
-import Avatar from "@/src/conponents/avatar/avatar";
+import Avatar from "@/src/components/avatar/Avatar";
 import CareerTimeline from "./_components/careerTimeline/careerTimeline";
 import TechStack from "./_components/techStack/techStack";
 import { bioText } from "./_constants";

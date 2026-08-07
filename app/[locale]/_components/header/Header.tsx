@@ -1,5 +1,5 @@
 import Link from "next/link";
-import Avatar from "@/src/conponents/avatar/avatar";
+import Avatar from "@/src/components/avatar/Avatar";
 import LocaleSwitcher from "../localeSwitcher/localeSwitcher";
 import ThemeSwitcher from "../themeSwitcher/ThemeSwitcher";
 
