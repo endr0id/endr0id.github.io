@@ -1,5 +1,5 @@
 import { ThemeProvider } from "@teispace/next-themes";
-import { locales } from "@/config/locale";
+import { type Locale, locales } from "@/config/locale";
 import Header from "./_components/header/Header";
 import ViewportFade from "./_components/viewportFade/ViewportFade";
 
@@ -8,12 +8,18 @@ export function generateStaticParams() {
 }
 
 export default async function Layout({
+  params,
   children,
-}: Readonly<{ children: React.ReactNode }>) {
+}: Readonly<{
+  params: Promise<{ locale: Locale }>;
+  children: React.ReactNode;
+}>) {
+  const { locale } = await params;
+
   return (
     <ThemeProvider enableSystem={false}>
       <ViewportFade />
-      <Header />
+      <Header locale={locale} />
       {children}
     </ThemeProvider>
   );
