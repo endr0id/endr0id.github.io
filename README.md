@@ -9,7 +9,7 @@ A personal developer blog built with Next.js (SSG) to document and share enginee
 
 ## なぜ作成したのか? (Why I Built This Blog?)
 開発業務を通じて得た経験や気付きを記録し、見返せる様にするためのナレッジベースとして作成。  
-アウトプットし自身でページを読み返す(dogfooding的なこと)ことで業務へのフィードバック出来る事もあると思い開発しました。
+アウトプットし自身でページを読み返す(dogfooding的なこと)ことで業務へのフィードバック出来る事もあると思い開発。
 
 ---
 
