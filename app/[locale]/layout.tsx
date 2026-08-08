@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import { ThemeProvider } from "@teispace/next-themes";
-import { type Locale, isLocale, locales } from "@/config/locale";
+import { isLocale, locales } from "@/config/locale";
 import Header from "./_components/header/Header";
 import ViewportFade from "./_components/viewportFade/ViewportFade";
 
