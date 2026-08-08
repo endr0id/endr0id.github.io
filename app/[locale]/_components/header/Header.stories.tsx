@@ -12,6 +12,9 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Primary: Story = {
+  args: {
+    locale: "ja",
+  },
   decorators: [
     (Story) => (
       <ThemeProvider defaultTheme="light" enableSystem={false}>
