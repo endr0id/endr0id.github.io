@@ -19,7 +19,7 @@ By sharing my learnings and regularly reading back through my own content (a for
 
 ## 技術スタック (Tech Stack)
 
-https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=next.js&logoColor=white  
-https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white  
-https://img.shields.io/badge/MDX-1B1F23?style=for-the-badge&logo=mdx&logoColor=white  
-https://img.shields.io/badge/GitHub%20Pages-222222?style=for-the-badge&logo=github&logoColor=white
+![Next.js](https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=next.js&logoColor=white)  
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)  
+![MDX](https://img.shields.io/badge/MDX-1B1F23?style=for-the-badge&logo=mdx&logoColor=white)  
+![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-222222?style=for-the-badge&logo=github&logoColor=white)
