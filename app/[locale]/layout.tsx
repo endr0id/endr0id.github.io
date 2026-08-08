@@ -1,5 +1,6 @@
+import { notFound } from "next/navigation";
 import { ThemeProvider } from "@teispace/next-themes";
-import { type Locale, locales } from "@/config/locale";
+import { type Locale, isLocale, locales } from "@/config/locale";
 import Header from "./_components/header/Header";
 import ViewportFade from "./_components/viewportFade/ViewportFade";
 
@@ -11,10 +12,14 @@ export default async function Layout({
   params,
   children,
 }: Readonly<{
-  params: Promise<{ locale: Locale }>;
+  params: Promise<{ locale: string }>;
   children: React.ReactNode;
 }>) {
   const { locale } = await params;
+
+  if (!isLocale(locale)) {
+    return notFound();
+  }
 
   return (
     <ThemeProvider enableSystem={false}>
