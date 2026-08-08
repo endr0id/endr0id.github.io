@@ -30,7 +30,6 @@ export default async function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       suppressHydrationWarning
     >
-      <meta name="viewport" content="width=device-width initial-scale=1.0" />
       <body className="min-h-full flex flex-col">{children}</body>
     </html>
   );
