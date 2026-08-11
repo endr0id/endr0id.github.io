@@ -1,19 +1,34 @@
+import { notFound } from "next/navigation";
 import clsx from "clsx";
 import { Separator } from "radix-ui";
+import { isLocale } from "@/config/locale";
 import Avatar from "@/src/components/avatar/Avatar";
+import { getDictionary } from "@/src/lib/locale/getDictionary";
 import TechStack from "./_components/techStack/TechStack";
 import CareerTimeline from "./_components/timeline/Timeline";
-import { bioText } from "./_constants";
+import { ProfileDictionary } from "./_contents";
 
-export default function Page() {
+export default async function Page({
+  params,
+}: {
+  params: Readonly<Promise<{ locale: string }>>;
+}) {
+  const { locale } = await params;
+
+  if (!isLocale(locale)) {
+    return notFound();
+  }
+
+  const profile = getDictionary(locale, ProfileDictionary);
+
   return (
     <main className="grid grid-cols-[120px_1fr] gap-x-4 gap-y-8 mx-auto lg:w-[1024px]">
       <Avatar size="size-[120px]" />
 
       <section aria-labelledby="profile" className="col-start-2 row-start-1">
-        <h1 className="text-3xl font-bold tracking-tight">Wataru Endo</h1>
+        <h1 className="text-3xl font-bold tracking-tight">{profile.name}</h1>
         <p className="mb-2 text-base text-neutral-500 dark:text-neutral-400">
-          Software Engineer
+          {profile.role}
         </p>
         <p
           className={clsx([
@@ -22,7 +37,7 @@ export default function Page() {
             "text-base text-neutral-600 dark:text-neutral-300",
           ])}
         >
-          {bioText}
+          {profile.introduction}
         </p>
       </section>
 
@@ -46,7 +61,7 @@ export default function Page() {
             "[&::-webkit-scrollbar]:hidden", // Chrome, Safari, Edge
           )}
         >
-          <CareerTimeline />
+          <CareerTimeline careerHistories={profile.careerHistory} />
         </section>
       </div>
     </main>

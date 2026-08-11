@@ -1,4 +1,8 @@
-export const ja = {
+import type { Profile } from "../_types/";
+
+export const ja: Profile = {
+  name: "エンドウ ワタル",
+  role: "Software Engineer",
   introduction: [
     "フロントエンド・バックエンド、時々インフラも触るエンジニア（フルスタック名乗ってもいい？）",
     "設計、開発、テスト（Unit/IT/E2E）、CI/CD、リファクタリングや技術負債の返済とかしてます。",
@@ -67,4 +71,4 @@ export const ja = {
         "・セキュリティ要求を満たすOpenStack環境の構築を担当\n・問い合わせに基づくバックエンドのトラブルシューティングとバグ修正",
     },
   ],
-};
+} as const;

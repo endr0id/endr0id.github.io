@@ -1,21 +1,25 @@
 import clsx from "clsx";
-import { timelineItems } from "../../_constants";
+import { type CareerHistory } from "../../_types";
 
-const CareerTimeline = () => {
+const CareerTimeline = ({
+  careerHistories,
+}: {
+  careerHistories: CareerHistory[];
+}) => {
   return (
     <ol className="relative">
-      {timelineItems.map((item, index) => {
-        const isLast = index === timelineItems.length - 1;
+      {careerHistories.map((careerHistory, index) => {
+        const isLast = index === careerHistories.length - 1;
 
         return (
-          <li key={item.title} className="grid grid-cols-[112px_1fr]">
+          <li key={careerHistory.title} className="grid grid-cols-[112px_1fr]">
             <time
               className={clsx([
                 "pt-1.5 pr-4",
                 "text-sm font-normal leading-none text-right whitespace-nowrap",
               ])}
             >
-              {item.date}
+              {careerHistory.period}
             </time>
 
             <div className={clsx(["relative", "border-s", !isLast && "pb-10"])}>
@@ -30,14 +34,13 @@ const CareerTimeline = () => {
               ></div>
 
               <div className="ms-4">
-                <h3 className="text-lg font-semibold mb-2">{item.title}</h3>
+                <h3 className="text-lg font-semibold mb-2">
+                  {careerHistory.title}
+                </h3>
                 <p
-                  className={clsx([
-                    "text-sm font-normal whitespace-pre-line",
-                    item.link && "mb-4",
-                  ])}
+                  className={clsx(["text-sm font-normal whitespace-pre-line"])}
                 >
-                  {item.description}
+                  {careerHistory.achievements}
                 </p>
               </div>
             </div>

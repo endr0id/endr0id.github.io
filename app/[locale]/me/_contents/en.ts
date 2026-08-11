@@ -1,4 +1,8 @@
-export const en = {
+import type { Profile } from "../_types/";
+
+export const en: Profile = {
+  name: "Wataru Endo",
+  role: "Software Engineer",
   introduction: [
     "An engineer working across frontend and backend, with the occasional dive into infrastructure (Am I allowed to call myself a full-stack engineer?)",
     "I work on system design, development, testing (Unit/IT/E2E), CI/CD, refactoring, and paying down technical debt.",
@@ -69,4 +73,4 @@ export const en = {
         "・Responsible for building an OpenStack environment that met security requirements\n・Troubleshot backend issues and fixed bugs based on support requests",
     },
   ],
-};
+} as const;
