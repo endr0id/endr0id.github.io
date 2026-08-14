@@ -6,6 +6,14 @@ export interface ArticleParam {
   slug: string;
 }
 
+/**
+ * MDX記事のディレクトリ構造から、静的ルート生成情報を提供する
+ *
+ * @remarks
+ * `generateStaticParams` からのみ利用され、ビルド時の静的ページ生成に使用する
+ *
+ * @returns 記事のslugとlocaleの組み合わせ
+ */
 export async function getArticleParams(): Promise<ArticleParam[]> {
   const dirEntries = await readdir(ARTICLE_PATH, { withFileTypes: true });
 
