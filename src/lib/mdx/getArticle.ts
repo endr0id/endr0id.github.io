@@ -1,6 +1,6 @@
 import type { ComponentType } from "react";
 import { readFile } from "node:fs/promises";
-import { ARTICLE_ROOT } from "@/src/constants";
+import { ARTICLE_PATH } from "./constants";
 import { loadMDXComponent } from "./loadMDXComponent";
 
 interface ArticleMetadata {
@@ -12,7 +12,7 @@ export async function getArticle(
   locale: string,
   slug: string,
 ): Promise<ArticleMetadata> {
-  const filePath = `${ARTICLE_ROOT}/${locale}/${slug}/index.mdx`;
+  const filePath = `${ARTICLE_PATH}/${locale}/${slug}/index.mdx`;
   const markdown = await readFile(filePath, "utf-8");
   const Component = await loadMDXComponent(locale, slug);
 

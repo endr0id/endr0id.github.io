@@ -1,6 +1,6 @@
 import { readFile } from "node:fs/promises";
 import matter from "gray-matter";
-import { ARTICLE_ROOT } from "@/src/constants";
+import { ARTICLE_PATH } from "./constants";
 import { getArticleParams } from "./getArticleParams";
 
 export interface ArticleMetadata {
@@ -30,7 +30,7 @@ export async function getArticlesMetadata(
 
   const articlesMeta = await Promise.all(
     targetParams.map(async ({ slug, locale }): Promise<ArticleMetadata> => {
-      const filePath = `${ARTICLE_ROOT}/${slug}/${locale}/index.mdx`;
+      const filePath = `${ARTICLE_PATH}/${slug}/${locale}/index.mdx`;
       const fileContent = await readFile(filePath, "utf-8");
       const { data } = matter(fileContent);
 

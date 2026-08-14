@@ -6,7 +6,7 @@
 
 import { beforeEach, describe, expect, test, vi } from "vitest";
 import { vol } from "memfs";
-import { ARTICLE_ROOT } from "@/src/constants";
+import { ARTICLE_PATH } from "../constants";
 import { getArticleParams } from "../getArticleParams";
 
 vi.mock("node:fs/promises", async (importOriginal) => {
@@ -25,7 +25,7 @@ describe("getArticleParams", () => {
 
   test("記事が1件も存在しない場合、空配列を返すこと", async () => {
     vol.fromJSON({
-      [`${ARTICLE_ROOT}/.gitkeep`]: "",
+      [`${ARTICLE_PATH}/.gitkeep`]: "",
     });
 
     const result = await getArticleParams();
@@ -35,7 +35,7 @@ describe("getArticleParams", () => {
 
   test("単一slug・単一localeの場合、その組み合わせを1件返すこと", async () => {
     vol.fromJSON({
-      [`${ARTICLE_ROOT}/react/ja/index.mdx`]: "# Reactの基礎",
+      [`${ARTICLE_PATH}/react/ja/index.mdx`]: "# Reactの基礎",
     });
 
     const result = await getArticleParams();
@@ -45,8 +45,8 @@ describe("getArticleParams", () => {
 
   test("単一slugに複数localeが存在する場合、slug×localeの組み合わせを全て返すこと", async () => {
     vol.fromJSON({
-      [`${ARTICLE_ROOT}/react/ja/index.mdx`]: "# Reactの基礎",
-      [`${ARTICLE_ROOT}/react/en/index.mdx`]: "# React Basics",
+      [`${ARTICLE_PATH}/react/ja/index.mdx`]: "# Reactの基礎",
+      [`${ARTICLE_PATH}/react/en/index.mdx`]: "# React Basics",
     });
 
     const result = await getArticleParams();
@@ -62,9 +62,9 @@ describe("getArticleParams", () => {
 
   test("複数slugが存在する場合、それぞれのslug×localeの組み合わせを全て返すこと", async () => {
     vol.fromJSON({
-      [`${ARTICLE_ROOT}/react/ja/index.mdx`]: "# Reactの基礎",
-      [`${ARTICLE_ROOT}/react/en/index.mdx`]: "# React Basics",
-      [`${ARTICLE_ROOT}/typescript/ja/index.mdx`]: "# TypeScriptの基礎",
+      [`${ARTICLE_PATH}/react/ja/index.mdx`]: "# Reactの基礎",
+      [`${ARTICLE_PATH}/react/en/index.mdx`]: "# React Basics",
+      [`${ARTICLE_PATH}/typescript/ja/index.mdx`]: "# TypeScriptの基礎",
     });
 
     const result = await getArticleParams();
@@ -82,8 +82,8 @@ describe("getArticleParams", () => {
   test("slugディレクトリ直下にファイル (ディレクトリ以外) が混在していても、無視されること", async () => {
     // NOTE: 例えば.DS_Store等、locale以外のファイルが紛れ込んだ場合を想定
     vol.fromJSON({
-      [`${ARTICLE_ROOT}/react/ja/index.mdx`]: "# Reactの基礎",
-      [`${ARTICLE_ROOT}/react/.DS_Store`]: "",
+      [`${ARTICLE_PATH}/react/ja/index.mdx`]: "# Reactの基礎",
+      [`${ARTICLE_PATH}/react/.DS_Store`]: "",
     });
 
     const result = await getArticleParams();

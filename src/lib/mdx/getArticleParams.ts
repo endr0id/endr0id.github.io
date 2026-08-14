@@ -1,5 +1,5 @@
 import { readdir } from "node:fs/promises";
-import { ARTICLE_ROOT } from "@/src/constants";
+import { ARTICLE_PATH } from "./constants";
 
 export interface ArticleParam {
   locale: string;
@@ -7,14 +7,14 @@ export interface ArticleParam {
 }
 
 export async function getArticleParams(): Promise<ArticleParam[]> {
-  const dirEntries = await readdir(ARTICLE_ROOT, { withFileTypes: true });
+  const dirEntries = await readdir(ARTICLE_PATH, { withFileTypes: true });
 
   const params = await Promise.all(
     dirEntries
       .filter((entry) => entry.isDirectory())
       .map(async (entry) => {
         const slug = entry.name;
-        const locales = await readdir(`${ARTICLE_ROOT}/${slug}`, {
+        const locales = await readdir(`${ARTICLE_PATH}/${slug}`, {
           withFileTypes: true,
         });
 
