@@ -1,7 +1,7 @@
 import clsx from "clsx";
-import { heroTitle } from "@/src/constants";
 import { getArticlesMetadata } from "@/src/lib/mdx/getArticlesMetadata";
 import Card from "./_components/card/Card";
+import { heroTitle } from "./_contents";
 
 export default async function Page({
   params,
