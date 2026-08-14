@@ -21,6 +21,14 @@ export default defineConfig({
           setupFiles: ["./vitest.setup.ts"],
         },
       },
+      {
+        test: {
+          name: { label: "node", color: "cyan" },
+          environment: "node",
+          include: ["**/__tests__/node/**/*.test.{ts,tsx}"],
+          exclude: ["**/*.stories.{ts,tsx}", "**/node_modules/**"],
+        },
+      },
     ],
   },
 });
