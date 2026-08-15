@@ -1,31 +1,29 @@
 import { notFound } from "next/navigation";
 import { extractHeading } from "@/src/lib/mdx/extractHeading";
 import { getArticle } from "@/src/lib/mdx/getArticle";
-import {
-  type ArticleParam,
-  getArticleParams,
-} from "@/src/lib/mdx/getArticleParams";
+import { getArticleParams } from "@/src/lib/mdx/getArticleParams";
+import { loadMDXComponent } from "@/src/lib/mdx/loadMDXComponent";
 import TOC from "../_components/toc/TOC";
+import type { ArticleIdentifier } from "@/src/lib/mdx/types";
 
 export function generateStaticParams() {
   return getArticleParams();
 }
 
-export default async function BlogPage({
+export default async function Page({
   params,
 }: {
-  params: Promise<ArticleParam>;
+  params: Promise<ArticleIdentifier>;
 }) {
   const { slug, locale } = await params;
 
-  // NOTE: URL直打ち等はgetArticleのreadFileで例外になる為、notFoundにする
-  const article = await getArticle(slug, locale).catch(() => null);
+  const Component = await loadMDXComponent(slug, locale).catch(() => null);
+  const markdown = await getArticle(slug, locale).catch(() => null);
 
-  if (!article) {
+  if (!Component || !markdown) {
     notFound();
   }
 
-  const { Component, markdown } = article;
   const headings = extractHeading(markdown);
 
   return (

@@ -1,10 +1,6 @@
 import { readdir } from "node:fs/promises";
 import { ARTICLE_PATH } from "./constants";
-
-export interface ArticleParam {
-  locale: string;
-  slug: string;
-}
+import type { ArticleIdentifier } from "./types";
 
 /**
  * MDX記事のディレクトリ構造から、静的ルート生成情報を提供する
@@ -14,7 +10,7 @@ export interface ArticleParam {
  *
  * @returns 記事のslugとlocaleの組み合わせ
  */
-export async function getArticleParams(): Promise<ArticleParam[]> {
+export async function getArticleParams(): Promise<ArticleIdentifier[]> {
   const dirEntries = await readdir(ARTICLE_PATH, { withFileTypes: true });
 
   const params = await Promise.all(
