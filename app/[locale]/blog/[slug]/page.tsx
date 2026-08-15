@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import { extractHeading } from "@/src/lib/mdx/extractHeading";
-import { getArticle } from "@/src/lib/mdx/getArticle";
 import { getArticleParams } from "@/src/lib/mdx/getArticleParams";
+import { getMarkdownContent } from "@/src/lib/mdx/getMarkdownContent";
 import { loadMDXComponent } from "@/src/lib/mdx/loadMDXComponent";
 import TOC from "../_components/toc/TOC";
 import type { ArticleIdentifier } from "@/src/lib/mdx/types";
@@ -18,7 +18,7 @@ export default async function Page({
   const { slug, locale } = await params;
 
   const Component = await loadMDXComponent(slug, locale).catch(() => null);
-  const markdown = await getArticle(slug, locale).catch(() => null);
+  const markdown = await getMarkdownContent(slug, locale).catch(() => null);
 
   if (!Component || !markdown) {
     notFound();

@@ -2,7 +2,7 @@ import { readFile } from "node:fs/promises";
 import { ARTICLE_PATH } from "./constants";
 import type { ArticleIdentifier } from "./types";
 
-export async function getArticle(
+export async function getMarkdownContent(
   slug: ArticleIdentifier["slug"],
   locale: ArticleIdentifier["locale"],
 ): Promise<string> {
