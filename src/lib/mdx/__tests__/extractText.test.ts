@@ -10,7 +10,7 @@ describe("extractText", () => {
   });
 
   test("childrenを持つノードの場合、子ノードのテキストを再帰的に連結して返すこと", () => {
-    // NOTE: 強調 (**bold**) のような、valueを持たずchildrenを持つノードを想定
+    // 強調 (**bold**) のような、valueを持たずchildrenを持つノードを想定
     const node: RootContent = {
       type: "strong",
       children: [{ type: "text", value: "bold text" }],
@@ -20,7 +20,7 @@ describe("extractText", () => {
   });
 
   test("複数の子ノードを持つ場合、それぞれのテキストを結合して返すこと", () => {
-    // NOTE: "Hello **World**!" のような、テキストと強調が混在する見出しを想定
+    // "Hello **World**!" のような、テキストと強調が混在する見出しを想定
     const node: RootContent = {
       type: "paragraph",
       children: [
@@ -37,7 +37,7 @@ describe("extractText", () => {
   });
 
   test("ネストしたインライン要素 (リンク内の強調など) からもテキストを再帰的に抽出できること", () => {
-    // NOTE: "[**Click here**](https://example.com)" のような入れ子構造を想定
+    // "[**Click here**](https://example.com)" のような入れ子構造を想定
     const node: RootContent = {
       type: "link",
       url: "https://example.com",
@@ -53,7 +53,7 @@ describe("extractText", () => {
   });
 
   test("valueもchildrenも持たないノードの場合、空文字を返すこと", () => {
-    // NOTE: thematicBreak (水平線 "---") のような、テキストを持たないノードを想定
+    // thematicBreak (水平線 "---") のような、テキストを持たないノードを想定
     const node: RootContent = { type: "thematicBreak" };
 
     expect(extractText(node)).toBe("");

@@ -3,27 +3,24 @@ import remarkFrontmatter from "remark-frontmatter";
 import remarkParse from "remark-parse";
 import { unified } from "unified";
 import { visit } from "unist-util-visit";
+import { HEADING_LEVELS } from "./constants";
 import { extractText } from "./extractText";
 import type { Heading } from "mdast";
+import type { MarkdownHeadingInfo } from "./types";
 
-export interface HeadingInfo {
-  id: string;
-  title: string;
-  level: Heading["depth"];
-}
-
-export function extractHeading(markdown: string): HeadingInfo[] {
-  const headings: HeadingInfo[] = [];
+export function extractHeading(markdown: string): MarkdownHeadingInfo[] {
+  const headings: MarkdownHeadingInfo[] = [];
   const markdownAST = unified()
     .use(remarkParse)
     .use(remarkFrontmatter)
     .parse(markdown);
   const slugger = new GithubSlugger();
 
-  const TOC_LEVELS = [2, 3] as const;
-
+  // markdownASTからHeading nodeのみにナローイングし検証
   visit(markdownAST, "heading", (node: Heading) => {
-    if (!TOC_LEVELS.includes(node.depth as (typeof TOC_LEVELS)[number])) {
+    if (
+      !HEADING_LEVELS.includes(node.depth as (typeof HEADING_LEVELS)[number])
+    ) {
       return;
     }
 
