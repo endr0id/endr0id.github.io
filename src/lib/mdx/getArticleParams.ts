@@ -3,10 +3,7 @@ import { ARTICLE_PATH } from "./constants";
 import type { ArticleIdentifier } from "./types";
 
 /**
- * MDX記事のディレクトリ構造から、静的ルート生成情報を提供する
- *
- * @remarks
- * `generateStaticParams` からのみ利用され、ビルド時の静的ページ生成に使用する
+ * MDX記事のディレクトリ構造から、一意の識別情報を提供する
  *
  * @returns 記事のslugとlocaleの組み合わせ
  */

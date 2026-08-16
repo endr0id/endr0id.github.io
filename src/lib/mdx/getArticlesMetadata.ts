@@ -1,53 +1,80 @@
 import { readFile } from "node:fs/promises";
 import matter from "gray-matter";
+import { z } from "zod";
 import { ARTICLE_PATH } from "./constants";
 import { getArticleParams } from "./getArticleParams";
+import type { ArticleIdentifier } from "./types";
 
-export interface ArticleMetadata {
-  title: string;
-  description: string;
-  date: string;
-  updatedDate: string;
-  tags: string[];
-  author: string;
-  published: boolean;
-  heroImage: string | null;
-  locale: string;
-  slug: string;
+const MDXFrontmatterSchema = z.object({
+  title: z.string(),
+  description: z.string(),
+  date: z.string(),
+  published: z.boolean(),
+  updatedDate: z.string().optional(),
+  tags: z.array(z.string()).optional(),
+  author: z.string().optional(),
+  heroImage: z.string().nullable().optional(),
+});
+
+type MDXMetadata = z.infer<typeof MDXFrontmatterSchema> & {
+  slug: ArticleIdentifier["slug"];
+  locale: ArticleIdentifier["locale"];
+};
+
+function frontmatterValidationError(
+  slug: ArticleIdentifier["slug"],
+  locale: ArticleIdentifier["locale"],
+  error: z.ZodError,
+): string {
+  const invalidFields = error.issues.map((issue) => issue.path.join("."));
+  return `${slug}/${locale}: invalid field(s): ${invalidFields.join(", ")}`;
 }
 
 /**
- * 記事のメタデータ一覧を取得する（公開済みの記事のみ）
- * @param locale 指定した場合、その言語の記事のみに絞り込む
+ * 言語別記事メタデータを取得する
+ *
+ * @param locale 言語識別子
+ *
+ * @returns frontmatterのオブジェクト情報
  */
 export async function getArticlesMetadata(
   targetLocale?: string,
-): Promise<ArticleMetadata[]> {
+): Promise<MDXMetadata[]> {
   const params = await getArticleParams();
   const targetParams = targetLocale
     ? params.filter((param) => param.locale === targetLocale)
     : params;
 
-  const articlesMeta = await Promise.all(
-    targetParams.map(async ({ slug, locale }): Promise<ArticleMetadata> => {
+  const mdxMeta = await Promise.all(
+    targetParams.map(async ({ slug, locale }): Promise<MDXMetadata | null> => {
       const filePath = `${ARTICLE_PATH}/${slug}/${locale}/index.mdx`;
-      const fileContent = await readFile(filePath, "utf-8");
-      const { data } = matter(fileContent);
+      const mdxContents = await readFile(filePath, "utf-8");
+      const { data } = matter(mdxContents);
+
+      if (data.published !== true) return null;
+
+      const frontmatter = MDXFrontmatterSchema.safeParse(data);
+
+      if (!frontmatter.success) {
+        throw new Error(
+          frontmatterValidationError(slug, locale, frontmatter.error),
+        );
+      }
 
       return {
-        title: data.title ?? "",
-        description: data.description ?? "",
-        date: data.date ?? "",
-        updatedDate: data.updatedDate ?? "",
-        tags: Array.isArray(data.tags) ? data.tags : [],
-        author: data.author ?? "",
-        published: Boolean(data.published),
-        heroImage: data.heroImage ?? null,
         slug,
         locale,
+        title: frontmatter.data.title,
+        description: frontmatter.data.description,
+        date: frontmatter.data.date,
+        published: frontmatter.data.published,
+        updatedDate: frontmatter.data.updatedDate ?? "",
+        tags: frontmatter.data.tags ?? [],
+        author: frontmatter.data.author ?? "",
+        heroImage: frontmatter.data.heroImage ?? null,
       };
     }),
   );
 
-  return articlesMeta.filter((article) => article.published === true);
+  return mdxMeta.filter((meta): meta is MDXMetadata => Boolean(meta));
 }
