@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, test, vi } from "vitest";
 import { vol } from "memfs";
 import { ARTICLE_PATH } from "../../constants";
-import { getArticleParams } from "../../getArticleParams";
+import { getArticleIdentifier } from "../../getArticleIdentifier";
 
 vi.mock("node:fs/promises", async (importOriginal) => {
   const actual = await importOriginal<typeof import("node:fs/promises")>();
@@ -12,7 +12,7 @@ vi.mock("node:fs/promises", async (importOriginal) => {
   };
 });
 
-describe("getArticleParams", () => {
+describe("getArticleIdentifier", () => {
   beforeEach(() => {
     vol.reset();
   });
@@ -22,7 +22,7 @@ describe("getArticleParams", () => {
       [`${ARTICLE_PATH}/.gitkeep`]: "",
     });
 
-    const result = await getArticleParams();
+    const result = await getArticleIdentifier();
 
     expect(result).toEqual([]);
   });
@@ -32,7 +32,7 @@ describe("getArticleParams", () => {
       [`${ARTICLE_PATH}/react/ja/index.mdx`]: "# Reactの基礎",
     });
 
-    const result = await getArticleParams();
+    const result = await getArticleIdentifier();
 
     expect(result).toEqual([{ slug: "react", locale: "ja" }]);
   });
@@ -43,7 +43,7 @@ describe("getArticleParams", () => {
       [`${ARTICLE_PATH}/react/en/index.mdx`]: "# React Basics",
     });
 
-    const result = await getArticleParams();
+    const result = await getArticleIdentifier();
 
     // NOTE: 検証時に順序に依存したくない為、以下の二段構えで検証し動作担保する
     // arrayContaining → 必要な要素が存在する
@@ -64,7 +64,7 @@ describe("getArticleParams", () => {
       [`${ARTICLE_PATH}/typescript/ja/index.mdx`]: "# TypeScriptの基礎",
     });
 
-    const result = await getArticleParams();
+    const result = await getArticleIdentifier();
 
     // NOTE: 検証時に順序に依存したくない為、以下の二段構えで検証し動作担保する
     // arrayContaining → 必要な要素が存在する
@@ -86,7 +86,7 @@ describe("getArticleParams", () => {
       [`${ARTICLE_PATH}/react/.DS_Store`]: "",
     });
 
-    const result = await getArticleParams();
+    const result = await getArticleIdentifier();
 
     expect(result).toEqual([{ slug: "react", locale: "ja" }]);
   });

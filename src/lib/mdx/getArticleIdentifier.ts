@@ -7,7 +7,7 @@ import type { ArticleIdentifier } from "./types";
  *
  * @returns 記事のslugとlocaleの組み合わせ
  */
-export async function getArticleParams(): Promise<ArticleIdentifier[]> {
+export async function getArticleIdentifier(): Promise<ArticleIdentifier[]> {
   const dirEntries = await readdir(ARTICLE_PATH, { withFileTypes: true });
 
   const params = await Promise.all(

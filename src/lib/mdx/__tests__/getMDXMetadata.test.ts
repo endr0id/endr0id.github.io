@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { readFile } from "node:fs/promises";
-import { getArticleParams } from "../getArticleParams";
+import { getArticleIdentifier } from "../getArticleIdentifier";
 import { getMDXMetadata } from "../getMDXMetadata";
 
 // helper method (Template literal formatting)
@@ -20,8 +20,8 @@ vi.mock("node:fs/promises", () => {
   };
 });
 
-vi.mock("../getArticleParams", () => ({
-  getArticleParams: vi.fn(),
+vi.mock("../getArticleIdentifier", () => ({
+  getArticleIdentifier: vi.fn(),
 }));
 
 describe("getMDXMetadata", () => {
@@ -30,7 +30,7 @@ describe("getMDXMetadata", () => {
   });
 
   it("公開済み (published: true) の記事のみを取得できること", async () => {
-    vi.mocked(getArticleParams).mockResolvedValue([
+    vi.mocked(getArticleIdentifier).mockResolvedValue([
       { slug: "article_ja", locale: "ja" },
       { slug: "article_en", locale: "en" },
     ]);
@@ -67,7 +67,7 @@ describe("getMDXMetadata", () => {
   });
 
   it("locale を指定した場合、該当言語の記事のみに絞り込めること", async () => {
-    vi.mocked(getArticleParams).mockResolvedValue([
+    vi.mocked(getArticleIdentifier).mockResolvedValue([
       { slug: "article_ja", locale: "ja" },
       { slug: "article_en", locale: "en" },
     ]);
@@ -93,7 +93,7 @@ describe("getMDXMetadata", () => {
   });
 
   it("公開済みの記事が1件もない場合、空配列が返ること", async () => {
-    vi.mocked(getArticleParams).mockResolvedValue([
+    vi.mocked(getArticleIdentifier).mockResolvedValue([
       { slug: "unknown", locale: "en" },
     ]);
     vi.mocked(readFile).mockResolvedValue(
@@ -113,7 +113,7 @@ describe("getMDXMetadata", () => {
   });
 
   it("任意項目 (tags, author, heroImage, updatedDate) が省略されている場合、デフォルト値で補われること", async () => {
-    vi.mocked(getArticleParams).mockResolvedValue([
+    vi.mocked(getArticleIdentifier).mockResolvedValue([
       { slug: "article_ja", locale: "ja" },
     ]);
     vi.mocked(readFile).mockResolvedValue(
@@ -138,7 +138,7 @@ describe("getMDXMetadata", () => {
   });
 
   it("必須項目 (title) が欠損している場合、記事を特定できるメッセージで例外が投げられること", async () => {
-    vi.mocked(getArticleParams).mockResolvedValue([
+    vi.mocked(getArticleIdentifier).mockResolvedValue([
       { slug: "article_ja", locale: "ja" },
     ]);
     vi.mocked(readFile).mockResolvedValue(
@@ -157,7 +157,7 @@ describe("getMDXMetadata", () => {
   });
 
   it("複数の必須項目 (title, date) が同時に欠損している場合、全て列挙されたメッセージで例外が投げられること", async () => {
-    vi.mocked(getArticleParams).mockResolvedValue([
+    vi.mocked(getArticleIdentifier).mockResolvedValue([
       { slug: "article_en", locale: "en" },
     ]);
     vi.mocked(readFile).mockResolvedValue(
@@ -175,7 +175,7 @@ describe("getMDXMetadata", () => {
   });
 
   it("非公開 (published: false) の記事は、必須項目が欠損していても例外にならないこと", async () => {
-    vi.mocked(getArticleParams).mockResolvedValue([
+    vi.mocked(getArticleIdentifier).mockResolvedValue([
       { slug: "article_ja", locale: "ja" },
     ]);
     vi.mocked(readFile).mockResolvedValue(

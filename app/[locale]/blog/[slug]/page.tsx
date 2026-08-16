@@ -1,13 +1,13 @@
 import { notFound } from "next/navigation";
 import { extractHeading } from "@/src/lib/mdx/extractHeading";
-import { getArticleParams } from "@/src/lib/mdx/getArticleParams";
+import { getArticleIdentifier } from "@/src/lib/mdx/getArticleIdentifier";
 import { getMarkdownContent } from "@/src/lib/mdx/getMarkdownContent";
 import { loadMDXComponent } from "@/src/lib/mdx/loadMDXComponent";
 import TOC from "../_components/toc/TOC";
 import type { ArticleIdentifier } from "@/src/lib/mdx/types";
 
 export function generateStaticParams() {
-  return getArticleParams();
+  return getArticleIdentifier();
 }
 
 export default async function Page({

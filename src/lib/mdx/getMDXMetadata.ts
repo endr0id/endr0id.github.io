@@ -2,7 +2,7 @@ import { readFile } from "node:fs/promises";
 import matter from "gray-matter";
 import { z } from "zod";
 import { ARTICLE_PATH } from "./constants";
-import { getArticleParams } from "./getArticleParams";
+import { getArticleIdentifier } from "./getArticleIdentifier";
 import type { ArticleIdentifier } from "./types";
 
 const MDXFrontmatterSchema = z.object({
@@ -37,7 +37,7 @@ function frontmatterValidationError(
 export async function getMDXMetadata(
   targetLocale?: string,
 ): Promise<MDXMetadata[]> {
-  const params = await getArticleParams();
+  const params = await getArticleIdentifier();
   const targetParams = targetLocale
     ? params.filter((param) => param.locale === targetLocale)
     : params;
