@@ -16,10 +16,7 @@ const MDXFrontmatterSchema = z.object({
   heroImage: z.string().nullable().optional(),
 });
 
-type MDXMetadata = z.infer<typeof MDXFrontmatterSchema> & {
-  slug: ArticleIdentifier["slug"];
-  locale: ArticleIdentifier["locale"];
-};
+type MDXMetadata = z.infer<typeof MDXFrontmatterSchema> & ArticleIdentifier;
 
 function frontmatterValidationError(
   slug: ArticleIdentifier["slug"],
