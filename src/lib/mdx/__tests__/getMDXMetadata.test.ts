@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { readFile } from "node:fs/promises";
 import { getArticleParams } from "../getArticleParams";
-import { getArticlesMetadata } from "../getArticlesMetadata";
+import { getMDXMetadata } from "../getMDXMetadata";
 
 // helper method (Template literal formatting)
 function dedent(strings: TemplateStringsArray, ...values: unknown[]): string {
@@ -24,7 +24,7 @@ vi.mock("../getArticleParams", () => ({
   getArticleParams: vi.fn(),
 }));
 
-describe("getArticlesMetadata", () => {
+describe("getMDXMetadata", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
@@ -55,7 +55,7 @@ describe("getArticlesMetadata", () => {
       `;
     });
 
-    const result = await getArticlesMetadata();
+    const result = await getMDXMetadata();
 
     expect(result).toHaveLength(1);
     expect(result[0]).toMatchObject({
@@ -83,7 +83,7 @@ describe("getArticlesMetadata", () => {
       `;
     });
 
-    const result = await getArticlesMetadata("ja");
+    const result = await getMDXMetadata("ja");
 
     expect(result).toHaveLength(1);
     expect(result[0]).toMatchObject({
@@ -107,7 +107,7 @@ describe("getArticlesMetadata", () => {
       `,
     );
 
-    const result = await getArticlesMetadata();
+    const result = await getMDXMetadata();
 
     expect(result).toEqual([]);
   });
@@ -127,7 +127,7 @@ describe("getArticlesMetadata", () => {
       `,
     );
 
-    const result = await getArticlesMetadata();
+    const result = await getMDXMetadata();
 
     expect(result[0]).toMatchObject({
       tags: [],
@@ -151,7 +151,7 @@ describe("getArticlesMetadata", () => {
       `,
     );
 
-    await expect(getArticlesMetadata()).rejects.toThrow(
+    await expect(getMDXMetadata()).rejects.toThrow(
       "article_ja/ja: invalid field(s): title",
     );
   });
@@ -169,7 +169,7 @@ describe("getArticlesMetadata", () => {
       `,
     );
 
-    await expect(getArticlesMetadata()).rejects.toThrow(
+    await expect(getMDXMetadata()).rejects.toThrow(
       "article_en/en: invalid field(s): title, date",
     );
   });
@@ -186,6 +186,6 @@ describe("getArticlesMetadata", () => {
       `,
     );
 
-    await expect(getArticlesMetadata()).resolves.toEqual([]);
+    await expect(getMDXMetadata()).resolves.toEqual([]);
   });
 });

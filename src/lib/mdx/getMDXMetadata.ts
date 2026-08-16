@@ -34,7 +34,7 @@ function frontmatterValidationError(
  *
  * @returns frontmatterのオブジェクト情報
  */
-export async function getArticlesMetadata(
+export async function getMDXMetadata(
   targetLocale?: string,
 ): Promise<MDXMetadata[]> {
   const params = await getArticleParams();

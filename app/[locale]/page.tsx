@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { getArticlesMetadata } from "@/src/lib/mdx/getArticlesMetadata";
+import { getMDXMetadata } from "@/src/lib/mdx/getMDXMetadata";
 import Card from "./_components/card/Card";
 import { heroTitle } from "./_contents";
 
@@ -10,7 +10,7 @@ export default async function Page({
 }>) {
   const { locale } = await params;
 
-  const articles = await getArticlesMetadata(locale);
+  const articles = await getMDXMetadata(locale);
   return (
     <div className="px-4 sm:px-6 lg:px-10">
       <section className="mt-16 mb-8 text-center">
