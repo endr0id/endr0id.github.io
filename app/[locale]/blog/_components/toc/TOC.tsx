@@ -4,13 +4,13 @@ import clsx from "clsx";
 import { Eye } from "lucide-react";
 import { useActiveHeading } from "./hooks/useActiveHeading";
 import { useTOCScroll } from "./hooks/useTOCScroll";
-import type { HeadingInfo } from "@/src/lib/mdx/extractHeading";
+import type { MarkdownHeadingInfo } from "@/src/lib/mdx/types";
 
 const ICON_SIZE = 14; // px
 const STROKE_WIDTH = 3; // px
 const LINE_CENTER_X = ICON_SIZE / 2; // 線とアイコンの共通の中心x座標(px)
 
-const TOC = ({ headings }: { headings: HeadingInfo[] }) => {
+const TOC = ({ headings }: { headings: MarkdownHeadingInfo[] }) => {
   const activeId = useActiveHeading();
   const { scrollRef, updateFadeState, canScrollUp, canScrollDown } =
     useTOCScroll(activeId);
