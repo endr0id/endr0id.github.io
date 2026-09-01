@@ -194,5 +194,16 @@ export function useMDXComponents(): MDXComponents {
       </th>
     ),
     td: ({ children }) => <td className="px-4 py-2">{children}</td>,
+
+    // Bold
+    strong: ({ children }) => <strong className="font-bold">{children}</strong>,
+
+    // Italic
+    em: ({ children }) => <em className="italic">{children}</em>,
+
+    // Strikethrough
+    del: ({ children }) => (
+      <del className="line-through opacity-70">{children}</del>
+    ),
   };
 }
